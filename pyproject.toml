@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantlab"
+version = "0.1.0"
+description = "Quantitative Trading Pipeline for A-share T+1 trading"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=1.1",
+    "pyyaml",
+    "scipy>=1.10",
+    "plotly>=5.15",
+    "yfinance>=0.2.18",
+    "requests",
+    "baostock",
+    "lightgbm",
+    "joblib",
+    "matplotlib",
+    "pyarrow",
+    "tqdm",
+    "loguru",
+    "fire",
+]
+
+[project.optional-dependencies]
+qlib = ["qlib"]
+test = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["quantlab*"]
+
+[tool.pytest.ini_options]
+testpaths = ["quantlab/tests"]

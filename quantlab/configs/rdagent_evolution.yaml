@@ -1,0 +1,44 @@
+# RD-Agent 进化配置预设
+# 每个 config 完整描述 "如何驱动 RD-Agent 进化"
+
+configs:
+  # 配置A：均值回复方向
+  - name: mean_revert_focus
+    target_directions: ["mean_revert", "overreaction"]
+    direction_prompt: |
+      Focus on mean-reversion signals: price deviation from moving averages,
+      volume-price divergence, RSI extremes, Bollinger Band breakouts.
+      Avoid trend-following or momentum signals.
+    max_corr_with_alpha: 0.3
+    max_rounds: 20
+    total_budget: 50
+
+  # 配置B：波动率异常方向
+  - name: volatility_anomaly
+    target_directions: ["volatility_anomaly", "regime_change"]
+    direction_prompt: |
+      Focus on volatility regime changes: GARCH residuals, realized vs implied
+      vol spread, intraday range anomalies, volume spike detection.
+    max_rounds: 15
+    total_budget: 30
+
+  # 配置C：流动性因子方向
+  - name: liquidity_focus
+    target_directions: ["liquidity_change", "market_microstructure"]
+    direction_prompt: |
+      Focus on liquidity signals: Amihud illiquidity, turnover rate changes,
+      bid-ask proxy from OHLC, Kyle's lambda estimation.
+    max_rounds: 15
+    total_budget: 30
+
+  # 配置D：多方向探索（宽泛搜索）
+  - name: broad_explore
+    target_directions: ["mean_revert", "volatility_anomaly", "liquidity_change",
+                         "momentum_divergence", "cross_section_anomaly"]
+    direction_prompt: |
+      Explore diverse alpha signals. Prioritize novelty over signal strength.
+      Each factor should capture a distinct market phenomenon.
+    max_corr_with_alpha: 0.25
+    max_corr_within_pool: 0.4
+    max_rounds: 30
+    total_budget: 100

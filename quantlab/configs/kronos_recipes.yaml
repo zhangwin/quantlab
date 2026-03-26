@@ -1,0 +1,86 @@
+# Kronos 微调方案预设
+# 每个 recipe 完整描述 "如何微调 Kronos"
+
+recipes:
+  # 方案A：保守策略 — 只调 predictor 最后2层
+  - name: conservative
+    description: "只微调 predictor 最后2层，安全稳健"
+    finetune_tokenizer: false
+    finetune_predictor: true
+    tokenizer_strategy: "none"
+    predictor_strategy: "last_n"
+    predictor_unfreeze_layers: 2
+    epochs: 3
+    learning_rate: 2.0e-5
+    reset_from_pretrained: true
+
+  # 方案B：激进策略 — tokenizer + predictor 全解冻
+  - name: aggressive
+    description: "全部解冻，充分微调"
+    finetune_tokenizer: true
+    finetune_predictor: true
+    tokenizer_strategy: "full"
+    predictor_strategy: "full"
+    epochs: 5
+    learning_rate: 1.0e-5
+    reset_from_pretrained: true
+
+  # 方案C：仅输出头
+  - name: head_only
+    description: "只微调 predictor 输出头，最轻量"
+    finetune_tokenizer: false
+    finetune_predictor: true
+    tokenizer_strategy: "none"
+    predictor_strategy: "head_only"
+    predictor_unfreeze_layers: 0
+    epochs: 10
+    learning_rate: 5.0e-5
+    reset_from_pretrained: true
+
+  # 方案D：累积微调 — 每天在前一天基础上继续调
+  - name: cumulative
+    description: "累积微调，不每天重置"
+    finetune_tokenizer: false
+    finetune_predictor: true
+    tokenizer_strategy: "none"
+    predictor_strategy: "last_n"
+    predictor_unfreeze_layers: 2
+    epochs: 1
+    learning_rate: 5.0e-6
+    reset_from_pretrained: false
+
+  # 方案E：近期加权 — 最近的数据样本权重更高
+  - name: recency_focus
+    description: "近期数据加权采样"
+    finetune_tokenizer: false
+    finetune_predictor: true
+    tokenizer_strategy: "none"
+    predictor_strategy: "last_n"
+    predictor_unfreeze_layers: 2
+    sample_strategy: "recency_weighted"
+    recency_decay: 0.93
+    epochs: 3
+    learning_rate: 2.0e-5
+    reset_from_pretrained: true
+
+  # 方案F：零样本 — 不微调，直接用预训练模型推理（对照基线）
+  - name: zero_shot
+    description: "零样本基线，不微调"
+    finetune_tokenizer: false
+    finetune_predictor: false
+    tokenizer_strategy: "none"
+    predictor_strategy: "none"
+
+  # 方案G：侧重粗粒度 — s1 权重加大
+  - name: s1_heavy
+    description: "加大 s1 粗粒度损失权重"
+    finetune_tokenizer: false
+    finetune_predictor: true
+    tokenizer_strategy: "none"
+    predictor_strategy: "last_n"
+    predictor_unfreeze_layers: 2
+    s1_loss_weight: 2.0
+    s2_loss_weight: 0.5
+    epochs: 3
+    learning_rate: 2.0e-5
+    reset_from_pretrained: true

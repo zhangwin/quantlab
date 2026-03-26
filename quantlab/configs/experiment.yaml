@@ -1,0 +1,28 @@
+# Experiment configuration for autoresearch loop.
+# Splits the full backtest period into in-sample and out-of-sample.
+# The agent optimizes on in-sample; out-of-sample is used for overfitting detection.
+
+# --- In-sample period (agent sees this score) ---
+in_sample_start: "2023-01-01"
+in_sample_end: "2024-06-30"
+
+# --- Out-of-sample period (hidden from agent, used for overfitting gap) ---
+oos_start: "2024-07-01"
+oos_end: "2025-03-01"
+
+# --- Hard constraints (violation = FAIL) ---
+max_drawdown_limit: 0.25        # max drawdown cannot exceed 25%
+min_total_trades: 20            # must execute at least 20 trades
+max_overfitting_gap: 1.5        # |sharpe_is - sharpe_oos| must be below this
+
+# --- Scoring formula ---
+# score = sharpe_ratio
+#       - drawdown_penalty * max(max_drawdown - 0.15, 0)
+#       - overfitting_penalty * overfitting_gap^2
+#
+# The agent maximizes `score`. This balances:
+#   1. Risk-adjusted returns (Sharpe)
+#   2. Tail risk control (drawdown penalty kicks in above 15%)
+#   3. Robustness (overfitting gap penalty)
+drawdown_penalty: 5.0           # penalty per unit of excess drawdown beyond 15%
+overfitting_penalty: 0.3        # penalty for overfitting gap squared

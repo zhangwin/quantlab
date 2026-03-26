@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Data (downloaded at runtime)
+quantlab/A_data/
+*.bin
+*.day.bin
+
+# Checkpoints & outputs
+checkpoints/
+outputs/
+*.pkl
+
+# Qlib data cache
+.qlib/
+
+# Logs
+*.log
+mlruns/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment & secrets
+.env
+.env.*
+
+# Pytest
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
