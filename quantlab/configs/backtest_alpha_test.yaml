@@ -1,0 +1,47 @@
+# Alpha-only backtest config for pipeline validation
+# Usage: python quantlab/main.py --config quantlab/configs/backtest_alpha_test.yaml
+
+# Backtest period (short for quick validation)
+start_date: "2025-12-01"
+end_date: "2026-02-28"
+
+# Market
+market: "all"
+initial_cash: 1000000
+qlib_data_dir: "quantlab/A_data"
+
+# Pipeline: Alpha only
+enable_alpha: true
+enable_kronos: false
+enable_rdagent: false
+
+# M2 Alpha158
+alpha_retrain_interval: 20
+alpha_train_years: 1          # Shortened for faster validation
+
+# M5 Ensemble (single pipeline, weights don't matter)
+ensemble_ic_lookback: 60
+ensemble_uncertainty_penalty: 0.1
+ensemble_min_weight: 0.1
+ensemble_max_weight: 0.6
+
+# M6 Execution
+max_positions: 10
+max_single_weight: 0.20
+target_buy_count: 3
+target_sell_count: 3
+
+# M7 Risk
+stop_loss_pct: 0.08
+max_hold_days: 60
+max_industry_pct: 0.30
+circuit_breaker_pct: 0.10
+pause_days: 5
+
+# Runtime
+warmup_days: 5
+random_seed: 42
+checkpoint_interval: 20
+checkpoint_dir: "checkpoints"
+benchmark: "SH000300"
+log_level: "INFO"

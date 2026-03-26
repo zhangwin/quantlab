@@ -1180,7 +1180,7 @@ class AlphaSignalPipeline:
         Negative offset = days before. Uses the calendar.
         """
         cal = data_manager.get_trading_calendar("2000-01-01", date)
-        if not cal:
+        if len(cal) == 0:
             return date
         target_idx = len(cal) + offset  # offset is negative
         target_idx = max(0, min(target_idx, len(cal) - 1))
