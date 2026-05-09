@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QuantLab 项目架构图</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #687285;
+      --line: #d8dde7;
+      --blue: #2563eb;
+      --green: #168a5a;
+      --amber: #b7791f;
+      --red: #c24132;
+      --violet: #6d5bd0;
+      --cyan: #0782a0;
+      --shadow: 0 14px 38px rgba(23, 32, 51, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      padding: 28px 0 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      max-width: 900px;
+      font-size: 15px;
+    }
+
+    .status {
+      display: grid;
+      gap: 8px;
+      min-width: 310px;
+      padding: 14px 16px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .status div {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      font-size: 13px;
+    }
+
+    .status span:first-child { color: var(--muted); }
+    .status span:last-child { font-weight: 700; }
+
+    section {
+      margin: 26px 0;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin: 0 0 12px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      font-size: 15px;
+      margin: 0 0 8px;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 14px;
+    }
+
+    .map {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(150px, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .lane {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      min-height: 460px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .lane-title {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      background: #fbfcfe;
+      padding: 11px;
+      min-height: 92px;
+      position: relative;
+    }
+
+    .box strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .box ul {
+      margin: 8px 0 0;
+      padding-left: 16px;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      color: #fff;
+      margin-bottom: 7px;
+    }
+
+    .data { border-top: 4px solid var(--blue); }
+    .signal { border-top: 4px solid var(--green); }
+    .fusion { border-top: 4px solid var(--violet); }
+    .agent { border-top: 4px solid var(--cyan); }
+    .exec { border-top: 4px solid var(--amber); }
+    .eval { border-top: 4px solid var(--red); }
+    .ops { border-top: 4px solid #475569; }
+
+    .tag.data-t { background: var(--blue); }
+    .tag.signal-t { background: var(--green); }
+    .tag.fusion-t { background: var(--violet); }
+    .tag.agent-t { background: var(--cyan); }
+    .tag.exec-t { background: var(--amber); }
+    .tag.eval-t { background: var(--red); }
+    .tag.ops-t { background: #475569; }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .step {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      min-height: 150px;
+    }
+
+    .step-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      margin-bottom: 9px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--panel);
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      padding: 10px;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 800;
+      background: #f9fafc;
+    }
+
+    code {
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 12px;
+      color: #0f172a;
+      background: #eef2f7;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .milestone {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+
+    .milestone b {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .milestone p { margin: 0; font-size: 13px; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 6px 9px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .callout {
+      border-left: 5px solid var(--blue);
+      background: #eef5ff;
+      padding: 13px 15px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1180px) {
+      .map { grid-template-columns: repeat(2, 1fr); }
+      .flow { grid-template-columns: repeat(2, 1fr); }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      header { grid-template-columns: 1fr; }
+      .status { min-width: 0; }
+    }
+
+    @media (max-width: 680px) {
+      .page { padding: 18px; }
+      .map, .flow { grid-template-columns: 1fr; }
+      h1 { font-size: 27px; }
+      .milestone { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <h1>QuantLab 全链路架构图</h1>
+        <div class="subtitle">
+          从 A 股日线数据、Kronos 预测、因子分析、板块资金流，到融合选股、Agentic Review、交易执行、回测复盘的项目总览。当前设计原则是：量化模型负责 alpha，Agent 层负责解释、反证、风控和复盘。
+        </div>
+      </div>
+      <div class="status">
+        <div><span>主数据</span><span>A_data rebuilt</span></div>
+        <div><span>数据区间</span><span>1999-11-10 ~ 2026-05-07</span></div>
+        <div><span>当前基线</span><span>Kronos-base 2022-2026 running</span></div>
+        <div><span>下一重点</span><span>P0 ledger → P1/P2 selector</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>一、系统总览</h2>
+      <p class="note">横向是数据到执行的主链路；每一列是一个稳定模块边界。实验脚本只能调用这些模块，不应把核心逻辑写死在 EXP 文件里。</p>
+      <div class="legend">
+        <span><i class="dot" style="background: var(--blue)"></i> 数据层</span>
+        <span><i class="dot" style="background: var(--green)"></i> 信号层</span>
+        <span><i class="dot" style="background: var(--violet)"></i> 融合层</span>
+        <span><i class="dot" style="background: var(--cyan)"></i> Agentic 层</span>
+        <span><i class="dot" style="background: var(--amber)"></i> 执行层</span>
+        <span><i class="dot" style="background: var(--red)"></i> 评估层</span>
+      </div>
+      <div class="map">
+        <div class="lane data">
+          <div class="lane-title">Data</div>
+          <div class="box">
+            <span class="tag data-t">Core</span>
+            <strong>Qlib A_data</strong>
+            <p>日线 OHLCV、复权因子、交易日历、股票池。</p>
+            <ul>
+              <li><code>quantlab/A_data</code></li>
+              <li><code>calendars/day.txt</code></li>
+              <li><code>features/*.bin</code></li>
+            </ul>
+          </div>
+          <div class="box">
+            <span class="tag data-t">Ext</span>
+            <strong>Sector Flow</strong>
+            <p>板块资金流扩展数据，不污染 Qlib 原始目录。</p>
+            <ul>
+              <li><code>A_data_ext/sector_flow</code></li>
+              <li>AKShare / Tushare provider</li>
+            </ul>
+          </div>
+          <div class="box">
+            <span class="tag data-t">Map</span>
+            <strong>Industry Map</strong>
+            <p>股票到行业映射，用于行业暴露、资金流 overlay 和 agent 审查。</p>
+          </div>
+        </div>
+
+        <div class="lane signal">
+          <div class="lane-title">Signal</div>
+          <div class="box">
+            <span class="tag signal-t">M3</span>
+            <strong>Kronos-base</strong>
+            <p>零样本预测模型，输出采样一致性、路径一致性、embedding、pred_ohlc。</p>
+            <ul>
+              <li>lookback 60</li>
+              <li>sample_count 10</li>
+              <li>predict horizon 5</li>
+            </ul>
+          </div>
+          <div class="box">
+            <span class="tag signal-t">M2</span>
+            <strong>Factor Signals</strong>
+            <p>动量、反转、波动、成交确认、Alpha 因子或 RD-Agent 因子。</p>
+          </div>
+          <div class="box">
+            <span class="tag signal-t">M1+</span>
+            <strong>Flow Features</strong>
+            <p>板块资金流排名、z-score、持续性、冷/热板块标签。</p>
+          </div>
+        </div>
+
+        <div class="lane fusion">
+          <div class="lane-title">Fusion</div>
+          <div class="box">
+            <span class="tag fusion-t">Selector</span>
+            <strong>Rank Fusion</strong>
+            <p>Kronos score、factor score、sector score、risk penalty 统一融合。</p>
+          </div>
+          <div class="box">
+            <span class="tag fusion-t">Baseline</span>
+            <strong>3-Feature Kronos</strong>
+            <p>当前主基线：<code>dir_agreement</code>、<code>slope_agreement</code>、<code>path_consistency</code>。</p>
+          </div>
+          <div class="box">
+            <span class="tag fusion-t">P2</span>
+            <strong>Relative Selector</strong>
+            <p>用当日市场中位数去噪：<code>feature - market_median</code>。</p>
+          </div>
+        </div>
+
+        <div class="lane agent">
+          <div class="lane-title">Agentic Review</div>
+          <div class="box">
+            <span class="tag agent-t">Module</span>
+            <strong>quantlab.agentic</strong>
+            <p>独立 agent 审查模块，实验脚本只调用结构化接口。</p>
+          </div>
+          <div class="box">
+            <span class="tag agent-t">Reviewers</span>
+            <strong>Rule + LLM</strong>
+            <p>当前先做规则型 reviewer，后续加入基本面、多空辩论、新闻事件分析。</p>
+          </div>
+          <div class="box">
+            <span class="tag agent-t">Output</span>
+            <strong>ReviewDecision</strong>
+            <p>输出 approve / reduce / veto / review 和 final candidates。</p>
+          </div>
+        </div>
+
+        <div class="lane exec">
+          <div class="lane-title">Execution</div>
+          <div class="box">
+            <span class="tag exec-t">Orders</span>
+            <strong>Execution Pipeline</strong>
+            <p>T+1 买入、最小交易单位、涨跌停、停牌过滤、滑点和费用。</p>
+          </div>
+          <div class="box">
+            <span class="tag exec-t">Risk</span>
+            <strong>Risk Controller</strong>
+            <p>止损、行业集中度、个股集中度、组合熔断。</p>
+          </div>
+          <div class="box">
+            <span class="tag exec-t">Ledger</span>
+            <strong>Trade Ledger</strong>
+            <p>交易记录、持仓、NAV、每日收益和费用归因。</p>
+          </div>
+        </div>
+
+        <div class="lane eval">
+          <div class="lane-title">Evaluation</div>
+          <div class="box">
+            <span class="tag eval-t">Backtest</span>
+            <strong>Baseline Ledger</strong>
+            <p>真实费用下的最终评估，替代旧 validate/sweep 粗评估。</p>
+          </div>
+          <div class="box">
+            <span class="tag eval-t">Diagnostics</span>
+            <strong>IC / Sharpe / DD</strong>
+            <p>截面 IC、年化收益、Sharpe、max drawdown、分年表现。</p>
+          </div>
+          <div class="box">
+            <span class="tag eval-t">Artifacts</span>
+            <strong>Reports</strong>
+            <p>CSV、NPZ、manifest、review JSON、图表和实验记录。</p>
+          </div>
+        </div>
+
+        <div class="lane ops">
+          <div class="lane-title">Ops</div>
+          <div class="box">
+            <span class="tag ops-t">Quality</span>
+            <strong>Data Checks</strong>
+            <p>calendar/bin 对齐、随机 OHLC 抽查、pipeline output 检查。</p>
+          </div>
+          <div class="box">
+            <span class="tag ops-t">Memory</span>
+            <strong>Project Memory</strong>
+            <p>记录事故、结论、实验路线，避免重复走已证伪路线。</p>
+          </div>
+          <div class="box">
+            <span class="tag ops-t">Scripts</span>
+            <strong>Runbooks</strong>
+            <p>后台顺序运行、日志 tail、重跑 baseline、生成报告。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>二、主交易链路</h2>
+      <div class="flow">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>数据校验</h3>
+          <p>用 <code>random_check_qlib_data.py</code> 确认 A_data 完整、calendar 和 bin header 对齐、近期覆盖率正常。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Kronos 推理</h3>
+          <p>用 <code>exp_pipeline_daily-new.py</code> 生成每日 embedding、pred_ohlc、selector features、fwd labels。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>融合排序</h3>
+          <p>先以 3-feature Kronos 为 baseline，再加入因子、板块资金流和相对偏离 selector。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Agentic 审查</h3>
+          <p>输出结构化 <code>ReviewDecision</code>，先只记录，回测通过后才允许影响仓位。</p>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <h3>执行与复盘</h3>
+          <p>用真实费用、T+1、停牌涨跌停规则生成账本，再做分年/分行业/分信号归因。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>三、关键模块和文件</h2>
+      <div class="grid-2">
+        <div class="panel">
+          <table>
+            <thead>
+              <tr><th>模块</th><th>职责</th><th>关键文件</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>数据管理</td>
+                <td>A_data 读写、更新、状态检查、行业映射。</td>
+                <td><code>quantlab/data/</code><br><code>scripts/diagnose_qlib_data.py</code></td>
+              </tr>
+              <tr>
+                <td>Kronos 推理</td>
+                <td>日频批量推理，保存 NPZ 和 meta CSV。</td>
+                <td><code>quantlab/experiments/exp_pipeline_daily-new.py</code><br><code>scripts/run_pipeline_daily_base_2022.sh</code></td>
+              </tr>
+              <tr>
+                <td>板块资金流</td>
+                <td>获取 AKShare/Tushare 资金流并生成滚动特征。</td>
+                <td><code>quantlab/data/sector_flow_download.py</code><br><code>quantlab/data/sector_flow_features.py</code></td>
+              </tr>
+              <tr>
+                <td>Agentic Review</td>
+                <td>独立审查模块，结构化输出 approve/reduce/veto/review。</td>
+                <td><code>quantlab/agentic/</code></td>
+              </tr>
+              <tr>
+                <td>执行风控</td>
+                <td>订单生成、交易撮合、持仓账本、风控限制。</td>
+                <td><code>quantlab/execution/</code><br><code>quantlab/risk_control/</code></td>
+              </tr>
+              <tr>
+                <td>实验评估</td>
+                <td>baseline summary、ledger、cluster、selector profile。</td>
+                <td><code>quantlab/experiments/</code><br><code>docs/experiments/</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <h3>当前最重要的工程边界</h3>
+          <div class="callout">
+            <b>不要把 agent、融合选择器、资金流处理写死在 EXP 脚本里。</b>
+            <br />
+            EXP 脚本只负责组织输入、调用模块、保存报告。核心逻辑必须沉到 <code>quantlab/data</code>、<code>quantlab/signal</code>、<code>quantlab/agentic</code>、<code>quantlab/execution</code> 这些可复用包里。
+          </div>
+          <h3 style="margin-top: 18px;">当前需要严格避免</h3>
+          <ul>
+            <li>让 LLM 直接替代 Kronos/factor selector。</li>
+            <li>把资金流数据写入原始 <code>A_data/features</code>。</li>
+            <li>继续复用旧坏数据下的 pipeline 产物。</li>
+            <li>只看 IC，不看真实费用后的 ledger。</li>
+            <li>未冻结 prompt/model/data snapshot 就回测 LLM 决策。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>四、Agentic 模块设计</h2>
+      <div class="grid-3">
+        <div class="panel">
+          <h3>输入：ReviewContext</h3>
+          <p class="note">由 selector 输出和辅助数据构建，保持可序列化。</p>
+          <ul>
+            <li>date</li>
+            <li>top-N candidates</li>
+            <li>industry map</li>
+            <li>sector flow features</li>
+            <li>portfolio context</li>
+            <li>market state</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>审查器：Reviewers</h3>
+          <p class="note">当前先用规则型，后续加入 LLM 型。</p>
+          <ul>
+            <li>LiquidityReviewer</li>
+            <li>SectorFlowReviewer</li>
+            <li>ConcentrationReviewer</li>
+            <li>FundamentalReviewer</li>
+            <li>BullBearDebateReviewer</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>输出：ReviewDecision</h3>
+          <p class="note">实验和执行只读取结构化字段。</p>
+          <ul>
+            <li>action: approve / reduce / veto / review</li>
+            <li>position_scale</li>
+            <li>veto_symbols</li>
+            <li>final_candidates</li>
+            <li>findings</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>五、实验路线</h2>
+      <div class="timeline">
+        <div class="milestone">
+          <b>P0 基线复核</b>
+          <p>重跑 2022-2026 Kronos-base 后，先重建真实 ledger。输出新的 Sharpe、maxDD、分年收益和交易清单。</p>
+        </div>
+        <div class="milestone">
+          <b>P1 参数稳健性</b>
+          <p>只扫 K 和 hold 的小网格，确认当前生产参数是否处于稳健平台，不做过拟合式调参。</p>
+        </div>
+        <div class="milestone">
+          <b>P2 相对偏离</b>
+          <p>把绝对 selector 改成相对当日市场中位数的偏离，降低市场整体情绪噪音。</p>
+        </div>
+        <div class="milestone">
+          <b>P3 板块资金流</b>
+          <p>先监控和解释，再验证弱板块剔除、强板块加权是否改善 maxDD 或 hit rate。</p>
+        </div>
+        <div class="milestone">
+          <b>P4 Agentic Overlay</b>
+          <p>先记录审查结果，不改交易；通过回测后再允许 veto/reduce/position_scale 进入执行链路。</p>
+        </div>
+        <div class="milestone">
+          <b>P5 ML Selector</b>
+          <p>用 embedding、Kronos 特征、因子、资金流和路径衍生特征做 walk-forward selector。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>六、数据和产物目录</h2>
+      <div class="panel">
+        <table>
+          <thead>
+            <tr><th>路径</th><th>内容</th><th>备注</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>quantlab/A_data</code></td>
+              <td>Qlib A 股日线主数据</td>
+              <td>只存原始行情格式，不放扩展特征。</td>
+            </tr>
+            <tr>
+              <td><code>quantlab/A_data_ext/sector_flow</code></td>
+              <td>板块资金流 raw / normalized / features</td>
+              <td>和 A_data calendar 对齐。</td>
+            </tr>
+            <tr>
+              <td><code>quantlab/experiments/reports/pipeline_daily_base</code></td>
+              <td>Kronos-base 每日 NPZ 和 meta CSV</td>
+              <td>当前从 2022 跑到 2026-05-07。</td>
+            </tr>
+            <tr>
+              <td><code>quantlab/experiments/reports/agentic_review</code></td>
+              <td>每日 review JSON 和 findings CSV</td>
+              <td>审查层产物，先记录再回测。</td>
+            </tr>
+            <tr>
+              <td><code>memory/</code></td>
+              <td>项目事故、实验计划、结论索引</td>
+              <td>重要结论先写 memory，避免重复试错。</td>
+            </tr>
+            <tr>
+              <td><code>docs/experiments</code></td>
+              <td>实验设计和报告</td>
+              <td>EXP-033 是板块资金流数据方案。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

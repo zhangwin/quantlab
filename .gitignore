@@ -39,6 +39,10 @@ mlruns/
 # Local docs (not for git)
 docs/运维使用指南.md
 
+# External reference repos / archives
+TradingAgents-main/
+TradingAgents-main.zip
+
 # OS
 .DS_Store
 Thumbs.db
