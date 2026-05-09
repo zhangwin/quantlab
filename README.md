@@ -16,6 +16,7 @@ A quantitative trading system for China A-share markets, fusing three Microsoft 
 
 - **Agentic review layer**: `quantlab.agentic` adds a reusable post-selection review module for liquidity checks, sector-flow exposure, industry concentration, veto/reduce/approve decisions, and daily review exports.
 - **Sector fund-flow data layer**: `quantlab.data.sector_flow_*` downloads, normalizes, aligns, and featurizes sector fund-flow data so it can be joined with the existing Qlib daily calendar and industry map.
+- **Feature article**: [Agentic feature article](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/agentic_feature_article.html) explains the new review layer, sector-flow alignment, daily decision flow, and experiment path.
 - **Project architecture HTML**: [HTML preview](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html) provides a visual map of data, signals, selector fusion, agentic review, execution, risk, evaluation, and operations. The source file is [docs/project_architecture.html](docs/project_architecture.html).
 
 ## Architecture
@@ -163,6 +164,7 @@ quantlab/
 
 ## Documentation
 
+- [Agentic feature article](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/agentic_feature_article.html) - Detailed introduction to the agentic review layer and sector-flow feature design ([source](docs/agentic_feature_article.html))
 - [Rendered architecture map](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html) - Current architecture map and new agentic/sector-flow design ([source](docs/project_architecture.html))
 - [DESIGN.md](DESIGN.md) — Architecture overview (Chinese)
 - [DETAIL_DESIGN.md](DETAIL_DESIGN.md) — Detailed module specifications M1-M9 (Chinese)

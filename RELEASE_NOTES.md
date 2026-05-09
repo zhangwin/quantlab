@@ -13,6 +13,7 @@
   - `sector_flow_download.py` supports AKShare and Tushare DC providers.
   - `sector_flow_features.py` builds rolling sector-flow ranks, z-scores, persistence, and hot/cold sector labels.
   - `sector_flow_utils.py` centralizes calendar alignment, standard columns, and table I/O.
+- Added `docs/agentic_feature_article.html`, a detailed HTML article introducing the agentic review layer, sector-flow alignment, daily decision flow, and experiment path.
 - Added `docs/project_architecture.html`, a static architecture overview for the full QuantLab pipeline.
 - Linked the architecture overview from `README.md` and `README_CN.md` using a rendered HTML preview, with the GitHub source file kept as a secondary link.
 

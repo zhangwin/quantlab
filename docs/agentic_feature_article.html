@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QuantLab 新特性：Agentic 复核层与板块资金流</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --paper: #ffffff;
+      --ink: #172033;
+      --muted: #637083;
+      --line: #d9dee8;
+      --blue: #2458d3;
+      --green: #167a59;
+      --amber: #b46a14;
+      --red: #b8322a;
+      --violet: #6254c8;
+      --cyan: #087b93;
+      --slate: #3e4b5f;
+      --shadow: 0 18px 44px rgba(23, 32, 51, 0.09);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      line-height: 1.72;
+    }
+
+    .page {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 30px 24px 56px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 28px;
+      align-items: end;
+      padding: 28px 0 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1.16;
+      letter-spacing: 0;
+      max-width: 900px;
+    }
+
+    .lead {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 920px;
+    }
+
+    .meta-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 8px 0;
+      border-bottom: 1px solid #eef1f6;
+      font-size: 14px;
+    }
+
+    .meta-row:last-child { border-bottom: 0; }
+    .meta-row span:first-child { color: var(--muted); }
+    .meta-row span:last-child { font-weight: 800; text-align: right; }
+
+    section {
+      margin: 34px 0;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 26px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    .note {
+      margin: 0 0 18px;
+      color: var(--muted);
+      max-width: 980px;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .feature-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      min-height: 180px;
+      border-top: 5px solid var(--blue);
+    }
+
+    .feature-card.green { border-top-color: var(--green); }
+    .feature-card.violet { border-top-color: var(--violet); }
+    .feature-card.cyan { border-top-color: var(--cyan); }
+    .feature-card.amber { border-top-color: var(--amber); }
+    .feature-card.red { border-top-color: var(--red); }
+
+    .feature-card p,
+    .feature-card li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    li { margin: 5px 0; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--blue);
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 9px;
+    }
+
+    .tag.green { background: var(--green); }
+    .tag.violet { background: var(--violet); }
+    .tag.cyan { background: var(--cyan); }
+    .tag.amber { background: var(--amber); }
+    .tag.red { background: var(--red); }
+    .tag.slate { background: var(--slate); }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(150px, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .lane {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      min-height: 430px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .lane-title {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--muted);
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--line);
+      text-transform: uppercase;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      background: #fbfcff;
+      padding: 12px;
+      min-height: 104px;
+    }
+
+    .box strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .step {
+      position: relative;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      min-height: 172px;
+    }
+
+    .step::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -8px;
+      width: 14px;
+      height: 14px;
+      border-top: 2px solid var(--line);
+      border-right: 2px solid var(--line);
+      transform: translateY(-50%) rotate(45deg);
+      background: var(--bg);
+    }
+
+    .step:last-child::after { display: none; }
+
+    .step-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .matrix th,
+    .matrix td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .matrix th {
+      background: #eef3fb;
+      color: var(--slate);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .matrix tr:last-child td { border-bottom: 0; }
+    .matrix td:nth-child(1) { font-weight: 800; color: var(--ink); }
+    .matrix td { color: var(--muted); }
+
+    code {
+      font-family: "Cascadia Mono", Consolas, monospace;
+      background: #eef1f6;
+      color: #172033;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 0.92em;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      background: #101828;
+      color: #eef4ff;
+      padding: 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.55;
+      box-shadow: var(--shadow);
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .callout {
+      border-left: 5px solid var(--cyan);
+      background: #eefafd;
+      padding: 16px 18px;
+      color: #194958;
+    }
+
+    .callout strong { color: #123848; }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .decision {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      min-height: 148px;
+    }
+
+    .decision.approve { border-top: 5px solid var(--green); }
+    .decision.reduce { border-top: 5px solid var(--amber); }
+    .decision.veto { border-top: 5px solid var(--red); }
+    .decision.review { border-top: 5px solid var(--violet); }
+
+    .decision p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: 42px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1100px) {
+      header,
+      .grid-2,
+      .architecture,
+      .flow,
+      .decision-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .lane,
+      .step {
+        min-height: auto;
+      }
+
+      .step::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        padding: 20px 14px 44px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-card,
+      .panel,
+      .feature-card,
+      .lane,
+      .step,
+      .decision {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <p class="eyebrow">QuantLab Feature Article</p>
+        <h1>从选股信号到可解释交易决策：Agentic 复核层与板块资金流新特性</h1>
+        <p class="lead">
+          QuantLab 的新增模块把 Kronos、因子分析、板块资金流和规则化 Agent 复核连接起来。
+          它不是把大模型直接放进回测核心，而是在量化排序之后增加一个可记录、可审计、可逐步升级的决策层，
+          用来解释候选股票、发现风险、控制组合暴露，并为后续基本面分析和多空辩论预留接口。
+        </p>
+      </div>
+      <aside class="meta-card">
+        <div class="meta-row"><span>核心模块</span><span>quantlab.agentic</span></div>
+        <div class="meta-row"><span>数据增强</span><span>Sector Fund Flow</span></div>
+        <div class="meta-row"><span>接入位置</span><span>选股后、下单前</span></div>
+        <div class="meta-row"><span>当前形态</span><span>规则化、可回测</span></div>
+        <div class="meta-row"><span>扩展方向</span><span>基本面、辩论、复盘</span></div>
+      </aside>
+    </header>
+
+    <section>
+      <h2>为什么需要这一层</h2>
+      <p class="note">
+        纯量化信号解决的是“哪些股票更可能有超额收益”，但真实交易还需要回答“这个组合是否拥挤、是否缺流动性、是否处在资金流明显恶化的板块里、是否应该降低仓位”。
+        新增的 Agentic 复核层把这些问题从实验脚本中抽离出来，形成一个独立、稳定、可复用的模块。
+      </p>
+      <div class="grid-3">
+        <article class="feature-card">
+          <span class="tag">Alpha</span>
+          <h3>信号负责排序</h3>
+          <p>Kronos 预测、Alpha 因子、后续机器学习排序模型负责生成候选池和分数。它们输出的是候选股票、rank、score、预测特征和选中标记。</p>
+        </article>
+        <article class="feature-card cyan">
+          <span class="tag cyan">Agentic</span>
+          <h3>复核负责解释和过滤</h3>
+          <p>Agentic 复核层读取候选池和组合上下文，输出结构化发现、否决股票、降权股票、整体仓位缩放和最终候选名单。</p>
+        </article>
+        <article class="feature-card green">
+          <span class="tag green">Data</span>
+          <h3>资金流负责补充横截面语义</h3>
+          <p>板块资金流把“股票处在哪个行业/概念、该板块近期资金是否持续流入”引入决策，使选股不只看个股历史形态。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>总体架构</h2>
+      <p class="note">
+        新特性位于“候选股票排序”和“交易执行”之间。这样做有两个好处：第一，回测主链路仍然清晰；
+        第二，未来即使加入 LLM 基本面分析、多空辩论和复盘，也不会污染底层数据、信号和执行模块。
+      </p>
+      <div class="architecture">
+        <div class="lane">
+          <div class="lane-title">Data Layer</div>
+          <div class="box">
+            <span class="tag">Qlib</span>
+            <strong>A 股日频数据</strong>
+            <p>OHLCV、amount、factor、calendar、instruments，所有查询受交易日和 anchor date 约束。</p>
+          </div>
+          <div class="box">
+            <span class="tag green">Sector</span>
+            <strong>板块资金流</strong>
+            <p>行业/概念资金流下载、清洗、标准化，并对齐 Qlib 日历和行业映射。</p>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="lane-title">Signal Layer</div>
+          <div class="box">
+            <span class="tag violet">Kronos</span>
+            <strong>K 线预测</strong>
+            <p>基于 lookback 窗口预测未来 OHLCV 分布，形成趋势、反转、波动和不确定性特征。</p>
+          </div>
+          <div class="box">
+            <span class="tag">Factor</span>
+            <strong>因子分析</strong>
+            <p>Alpha158、技术面因子、市场中性特征、行业相对强弱等用于横截面排序。</p>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="lane-title">Fusion Selector</div>
+          <div class="box">
+            <span class="tag slate">Rank</span>
+            <strong>候选池生成</strong>
+            <p>Kronos + 因子分数融合，输出 top-N 候选和 top-K 初选组合。</p>
+          </div>
+          <div class="box">
+            <span class="tag slate">Meta</span>
+            <strong>上下文打包</strong>
+            <p>把 symbol、rank、score、行业、均额、last close、特征列转换为 ReviewContext。</p>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="lane-title">Agentic Review</div>
+          <div class="box">
+            <span class="tag cyan">Rules</span>
+            <strong>确定性 reviewer</strong>
+            <p>流动性、板块资金流、行业集中度等规则先落地，保证可回测和可解释。</p>
+          </div>
+          <div class="box">
+            <span class="tag cyan">Future</span>
+            <strong>LLM reviewer</strong>
+            <p>后续可增加基本面、新闻、多空辩论、复盘 reviewer，但必须遵循同一结构化接口。</p>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="lane-title">Decision</div>
+          <div class="box">
+            <span class="tag amber">Action</span>
+            <strong>结构化决策</strong>
+            <p>approve、reduce、veto、review，并给出 position_scale、veto_symbols、final_candidates。</p>
+          </div>
+          <div class="box">
+            <span class="tag amber">Record</span>
+            <strong>复核记录</strong>
+            <p>输出 JSON/CSV，便于每日归档、回测复盘、策略对比和人工审阅。</p>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="lane-title">Execution & Eval</div>
+          <div class="box">
+            <span class="tag red">Trade</span>
+            <strong>T+1 执行</strong>
+            <p>最终候选和仓位缩放进入交易执行层，保持下单逻辑和风控逻辑独立。</p>
+          </div>
+          <div class="box">
+            <span class="tag red">Backtest</span>
+            <strong>实验评估</strong>
+            <p>对比无复核、仅流动性复核、资金流复核、组合集中度复核等实验版本。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>日频决策流程</h2>
+      <p class="note">
+        当前实现适合放在每日推理完成之后运行。它不替代 Kronos 或因子模型，而是读取模型输出的候选池，对候选组合做交易前复核。
+      </p>
+      <div class="flow">
+        <article class="step">
+          <div class="step-num">1</div>
+          <h3>数据更新</h3>
+          <p>更新 Qlib 日频数据、日历、股票池和行业映射；外部板块资金流写入扩展目录。</p>
+        </article>
+        <article class="step">
+          <div class="step-num">2</div>
+          <h3>信号推理</h3>
+          <p>Kronos 和因子管线生成预测特征、横截面分数和候选股票排序。</p>
+        </article>
+        <article class="step">
+          <div class="step-num">3</div>
+          <h3>候选池打包</h3>
+          <p>把 meta 文件、行业映射、均额、板块资金流合并为 ReviewContext。</p>
+        </article>
+        <article class="step">
+          <div class="step-num">4</div>
+          <h3>Reviewer 复核</h3>
+          <p>Liquidity、SectorFlow、Concentration 等 reviewer 生成结构化 findings。</p>
+        </article>
+        <article class="step">
+          <div class="step-num">5</div>
+          <h3>决策聚合</h3>
+          <p>AgenticReviewEngine 聚合发现，生成 action、仓位缩放、否决名单和最终候选。</p>
+        </article>
+        <article class="step">
+          <div class="step-num">6</div>
+          <h3>交易执行</h3>
+          <p>执行层只消费最终候选和仓位约束，不关心每个 reviewer 的内部细节。</p>
+        </article>
+        <article class="step">
+          <div class="step-num">7</div>
+          <h3>复盘归档</h3>
+          <p>保存 JSON/CSV，用于解释每日交易、复盘误判和训练后续人工/LLM reviewer。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Agentic 模块的接口边界</h2>
+      <p class="note">
+        这次设计的关键点是“独立模块，而不是写在 EXP 脚本里”。实验脚本可以调用它，但模块本身不依赖某一个实验。
+      </p>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>文件</th>
+            <th>职责</th>
+            <th>为什么重要</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>quantlab/agentic/schemas.py</code></td>
+            <td>定义 CandidateStock、ReviewContext、ReviewFinding、ReviewDecision 等结构。</td>
+            <td>让选股管线、复核器、执行层通过稳定数据结构解耦。</td>
+          </tr>
+          <tr>
+            <td><code>quantlab/agentic/reviewers.py</code></td>
+            <td>实现 BaseReviewer、LiquidityReviewer、SectorFlowReviewer、ConcentrationReviewer。</td>
+            <td>当前 reviewer 是规则化的，因此可以进入历史回测，不依赖实时人工判断。</td>
+          </tr>
+          <tr>
+            <td><code>quantlab/agentic/engine.py</code></td>
+            <td>运行所有 reviewer，聚合 findings，生成最终决策。</td>
+            <td>把多条复核意见压缩为交易层能消费的结构化结果。</td>
+          </tr>
+          <tr>
+            <td><code>quantlab/agentic/io.py</code></td>
+            <td>从 pipeline meta、行业映射、板块资金流构造 ReviewContext。</td>
+            <td>解决实验输出和独立 Agentic 模块之间的数据适配问题。</td>
+          </tr>
+          <tr>
+            <td><code>quantlab/agentic/review_cli.py</code></td>
+            <td>提供日频复核命令行入口，输出 JSON 和 CSV。</td>
+            <td>便于先跑离线分析，再决定是否接入正式回测。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>四类复核决策</h2>
+      <p class="note">
+        AgenticReviewEngine 的输出不是自然语言建议，而是结构化动作。自然语言解释会保留在 finding message 里，但交易层只读取稳定字段。
+      </p>
+      <div class="decision-grid">
+        <article class="decision approve">
+          <h3>approve</h3>
+          <p>候选组合没有触发重要风险，保持原始 top-K 和默认仓位。</p>
+        </article>
+        <article class="decision reduce">
+          <h3>reduce</h3>
+          <p>组合存在板块资金流走弱、行业集中等风险，保留交易但降低整体或局部仓位。</p>
+        </article>
+        <article class="decision veto">
+          <h3>veto</h3>
+          <p>个股触发严重流动性或其他硬约束，从最终候选中移除，并可用后备候选替换。</p>
+        </article>
+        <article class="decision review">
+          <h3>review</h3>
+          <p>发现中等风险但不足以自动否决，输出审阅名单，用于人工或更高阶 Agent 复核。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>板块资金流如何与现有数据对齐</h2>
+      <div class="grid-2">
+        <article class="panel">
+          <h3>数据不写入 Qlib 主目录</h3>
+          <p>
+            板块资金流来自外部数据源，字段语义和更新机制都不同于 OHLCV。
+            因此建议放在 <code>quantlab/A_data_ext/sector_flow</code>，避免污染 <code>quantlab/A_data</code> 的标准 Qlib bin 数据。
+          </p>
+          <ul>
+            <li><code>normalized/sector_flow_daily</code>：原始资金流标准化结果。</li>
+            <li><code>features/sector_flow_features</code>：滚动排名、z-score、持续性、冷热标签。</li>
+            <li><code>industry_map.csv</code>：股票到行业的映射桥梁。</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>对齐原则</h3>
+          <p>
+            所有资金流特征必须按 Qlib 交易日历对齐，并且在 T 日复核时只能使用 T 日及以前的数据。
+            这与主回测的 anchor date 原则一致，避免资金流特征产生前视偏差。
+          </p>
+          <ul>
+            <li>日期对齐：使用 <code>calendars/day.txt</code> 作为唯一交易日基准。</li>
+            <li>行业对齐：通过 <code>industry_map.csv</code> 将股票映射到板块。</li>
+            <li>特征对齐：T 日候选股票只读取 T 日可见资金流特征。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>一次日频复核的输入与输出</h2>
+      <div class="grid-2">
+        <article>
+          <h3>命令行示例</h3>
+          <pre><code>python quantlab/agentic/review_cli.py \
+  --date 2026-05-07 \
+  --meta-path quantlab/experiments/reports/pipeline_daily_base/2026-05-07_meta.csv \
+  --industry-map quantlab/industry_map.csv \
+  --sector-flow quantlab/A_data_ext/sector_flow/features/sector_flow_features.csv \
+  --output-dir quantlab/experiments/reports/agentic_review \
+  --target-k 5 \
+  --candidate-n 20</code></pre>
+        </article>
+        <article class="panel">
+          <h3>输出文件</h3>
+          <p>复核结果会保存为结构化记录，适合后续做批量统计和回测对比。</p>
+          <ul>
+            <li><code>*_decision.json</code>：完整 ReviewDecision，包括 action、position_scale、final_candidates。</li>
+            <li><code>*_findings.csv</code>：每个 reviewer 的发现，便于人工查看和聚合分析。</li>
+            <li><code>*_final_candidates.csv</code>：交易层可消费的最终候选名单。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>它和 LLM Agent 的关系</h2>
+      <div class="callout">
+        <strong>当前版本故意先规则化。</strong>
+        规则化 reviewer 可以直接进入历史回测，能回答“加入这一层后收益、回撤、换手、胜率是否改善”。
+        后续 LLM reviewer 可以作为同一接口下的插件加入，但它应该先用于解释、审阅、复盘和人工辅助，而不是直接替代可回测信号。
+      </div>
+      <div class="grid-3" style="margin-top: 16px;">
+        <article class="feature-card violet">
+          <span class="tag violet">Bull / Bear</span>
+          <h3>多空辩论</h3>
+          <p>对同一个候选股票生成看多与看空论点，最终落到结构化 finding，而不是停留在自然语言评论。</p>
+        </article>
+        <article class="feature-card amber">
+          <span class="tag amber">Fundamental</span>
+          <h3>基本面复核</h3>
+          <p>接入财报、估值、盈利质量、公告和新闻摘要，作为交易前的审阅层，而不是数据泄漏的 alpha 特征。</p>
+        </article>
+        <article class="feature-card red">
+          <span class="tag red">Memory</span>
+          <h3>复盘记忆</h3>
+          <p>记录每次 veto/reduce 的结果，分析哪些 reviewer 真正降低了回撤，哪些只是噪声。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>实验路线</h2>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>阶段</th>
+            <th>目标</th>
+            <th>判断标准</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P0 基线</td>
+            <td>先跑 2022 至今的 Kronos + 因子融合基线，不开启 Agentic 复核。</td>
+            <td>确认数据覆盖、候选池稳定性、收益/回撤/换手的可复现基准。</td>
+          </tr>
+          <tr>
+            <td>P1 规则复核</td>
+            <td>开启流动性、行业集中度和板块资金流 reviewer。</td>
+            <td>观察是否降低极端亏损、无效交易和冷板块暴露。</td>
+          </tr>
+          <tr>
+            <td>P2 参数稳健性</td>
+            <td>扫描 target_k、candidate_n、position_scale、资金流阈值。</td>
+            <td>不能只看单次收益，要看多个窗口下的收益回撤比和换手变化。</td>
+          </tr>
+          <tr>
+            <td>P3 解释质量</td>
+            <td>统计 reviewer finding 与后续收益、回撤、成交失败之间的关系。</td>
+            <td>保留有预测价值的 reviewer，移除只增加噪声的规则。</td>
+          </tr>
+          <tr>
+            <td>P4 LLM 扩展</td>
+            <td>在同一接口下加入基本面、新闻、多空辩论和复盘 reviewer。</td>
+            <td>LLM 输出必须结构化、可归档、可抽样审计，不能破坏回测边界。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>设计原则总结</h2>
+      <div class="grid-4">
+        <article class="feature-card">
+          <h3>信号与决策分离</h3>
+          <p>Kronos 和因子模型负责发现机会，Agentic 层负责复核和约束交易。</p>
+        </article>
+        <article class="feature-card green">
+          <h3>外部数据隔离</h3>
+          <p>板块资金流放在扩展目录，通过日期和行业映射对齐，不污染 Qlib 主数据。</p>
+        </article>
+        <article class="feature-card cyan">
+          <h3>先可回测再智能化</h3>
+          <p>当前 reviewer 先规则化，未来 LLM reviewer 也要遵守结构化接口和时间边界。</p>
+        </article>
+        <article class="feature-card amber">
+          <h3>输出可审计</h3>
+          <p>每次 approve、reduce、veto、review 都必须留下 finding 和最终候选记录。</p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        本文档对应 QuantLab 新增的 <code>quantlab.agentic</code> 与 <code>quantlab.data.sector_flow_*</code> 模块。
+        它用于说明设计思路和实验接入方式，不替代具体实验报告。
+      </p>
+    </footer>
+  </main>
+</body>
+</html>
