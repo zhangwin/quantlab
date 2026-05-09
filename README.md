@@ -4,7 +4,7 @@ English | [中文](README_CN.md)
 
 A quantitative trading system for China A-share markets, fusing three Microsoft open-source projects into a unified T+1 daily trading pipeline.
 
-> Current architecture map: [docs/project_architecture.html](docs/project_architecture.html)
+> Current architecture map: [HTML preview](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html) ([source](docs/project_architecture.html))
 
 | Component | Role |
 |-----------|------|
@@ -16,11 +16,11 @@ A quantitative trading system for China A-share markets, fusing three Microsoft 
 
 - **Agentic review layer**: `quantlab.agentic` adds a reusable post-selection review module for liquidity checks, sector-flow exposure, industry concentration, veto/reduce/approve decisions, and daily review exports.
 - **Sector fund-flow data layer**: `quantlab.data.sector_flow_*` downloads, normalizes, aligns, and featurizes sector fund-flow data so it can be joined with the existing Qlib daily calendar and industry map.
-- **Project architecture HTML**: [docs/project_architecture.html](docs/project_architecture.html) provides a visual map of data, signals, selector fusion, agentic review, execution, risk, evaluation, and operations.
+- **Project architecture HTML**: [HTML preview](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html) provides a visual map of data, signals, selector fusion, agentic review, execution, risk, evaluation, and operations. The source file is [docs/project_architecture.html](docs/project_architecture.html).
 
 ## Architecture
 
-For the latest full-system view, open [docs/project_architecture.html](docs/project_architecture.html).
+For the latest full-system view, open the [rendered HTML preview](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html). GitHub's normal `blob` page shows the HTML source code by design.
 
 <img width="1024" height="1536" alt="ChatGPT Image 2026年4月18日 20_45_33" src="https://github.com/user-attachments/assets/e15b27b8-69a3-4df0-ac72-9df71e04c311" />
 
@@ -163,7 +163,7 @@ quantlab/
 
 ## Documentation
 
-- [docs/project_architecture.html](docs/project_architecture.html) - Current architecture map and new agentic/sector-flow design
+- [Rendered architecture map](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html) - Current architecture map and new agentic/sector-flow design ([source](docs/project_architecture.html))
 - [DESIGN.md](DESIGN.md) — Architecture overview (Chinese)
 - [DETAIL_DESIGN.md](DETAIL_DESIGN.md) — Detailed module specifications M1-M9 (Chinese)
 - [docs/](docs/) — Per-module usage guides (Chinese)

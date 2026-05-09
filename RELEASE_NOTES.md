@@ -14,7 +14,7 @@
   - `sector_flow_features.py` builds rolling sector-flow ranks, z-scores, persistence, and hot/cold sector labels.
   - `sector_flow_utils.py` centralizes calendar alignment, standard columns, and table I/O.
 - Added `docs/project_architecture.html`, a static architecture overview for the full QuantLab pipeline.
-- Linked the architecture overview from `README.md` and `README_CN.md` so the GitHub project entry points expose the new design directly.
+- Linked the architecture overview from `README.md` and `README_CN.md` using a rendered HTML preview, with the GitHub source file kept as a secondary link.
 
 ### Changed
 
