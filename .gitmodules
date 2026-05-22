@@ -3,7 +3,7 @@
 	url = https://github.com/zhangwin/qlib.git
 [submodule "Kronos"]
 	path = Kronos
-	url = https://github.com/shiyu-coder/Kronos
+	url = https://github.com/zhangwin/Kronos
 [submodule "RD-Agent"]
 	path = RD-Agent
 	url = https://github.com/zhangwin/RD-Agent.git
