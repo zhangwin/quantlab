@@ -1,9 +1,9 @@
 [submodule "qlib"]
 	path = qlib
-	url = https://github.com/microsoft/qlib.git
+	url = https://github.com/zhangwin/qlib.git
 [submodule "Kronos"]
 	path = Kronos
 	url = https://github.com/shiyu-coder/Kronos
 [submodule "RD-Agent"]
 	path = RD-Agent
-	url = https://github.com/microsoft/RD-Agent.git
+	url = https://github.com/zhangwin/RD-Agent.git
