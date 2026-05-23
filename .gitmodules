@@ -4,7 +4,7 @@
 	branch = main
 [submodule "Kronos"]
 	path = Kronos
-	url = https://github.com/zhangwin/Kronos
+	url = https://github.com/zhangwin/Kronos.git
 	branch = master
 [submodule "RD-Agent"]
 	path = RD-Agent
