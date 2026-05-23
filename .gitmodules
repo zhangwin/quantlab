@@ -1,0 +1,12 @@
+[submodule "Kronos"]
+	path = Kronos
+	url = https://github.com/zhangwin/Kronos.git
+	branch = master
+[submodule "RD-Agent"]
+	path = RD-Agent
+	url = https://github.com/zhangwin/RD-Agent.git
+	branch = main
+[submodule "qlib"]
+	path = qlib
+	url = https://github.com/zhangwin/qlib.git
+	branch = main
