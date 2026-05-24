@@ -1166,19 +1166,15 @@ def _extract_docstring(code: str) -> str:
 
 
 def _is_qlib_expression(code: str) -> bool:
-    """判断代码是否仅包含 Qlib 表达式。"""
-    # 简化判断：如果代码中只有字符串赋值和 return，视为表达式
+    """判断代码是否包含 Qlib 表达式（通过 FACTOR_QEXPR 标记）。"""
     try:
         tree = ast.parse(code)
         for node in ast.walk(tree):
-            if isinstance(node, ast.FunctionDef) and node.name == "compute_factor":
-                # 如果函数体只有一两行且包含 Qlib 关键字
-                body = ast.dump(node)
-                qlib_ops = ["Mean", "Std", "Corr", "Ref", "Rank", "Sum",
-                            "Slope", "Rsquare", "Max", "Min", "$close", "$volume"]
-                has_qlib = any(op in body for op in qlib_ops)
-                has_pandas = "DataFrame" in body or "groupby" in body or "rolling" in body
-                return has_qlib and not has_pandas
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name) and target.id == "FACTOR_QEXPR":
+                        if isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
+                            return True
     except Exception:
         pass
     return False
@@ -1189,10 +1185,11 @@ def _extract_qlib_expression(code: str) -> Optional[str]:
     try:
         tree = ast.parse(code)
         for node in ast.walk(tree):
-            if isinstance(node, ast.Constant) and isinstance(node.value, str):
-                val = node.value
-                if "$" in val and any(op in val for op in ["Mean", "Std", "Corr", "Ref"]):
-                    return val
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name) and target.id == "FACTOR_QEXPR":
+                        if isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
+                            return node.value.value
     except Exception:
         pass
     return None
