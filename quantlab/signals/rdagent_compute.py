@@ -114,7 +114,7 @@ def main():
     if not args.anchor_date and not args.start:
         parser.error("请指定 --anchor-date（单日）或 --start/--end（批量回测）")
 
-    from quantlab.signal.signal_rdagent import (
+    from quantlab.signals.signal_rdagent import (
         CodeFactorRegistry,
         CodeFactorExecutor,
         RDAgentSignalPipeline,

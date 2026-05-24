@@ -17,7 +17,7 @@ import pandas as pd
 import pytest
 import yaml
 
-from quantlab.signal.signal_rdagent import (
+from quantlab.signals.signal_rdagent import (
     EvolutionConfig,
     CodeFactorEntry,
     CodeFactorRegistry,

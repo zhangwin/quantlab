@@ -51,7 +51,7 @@ DEFAULT_CODE_DIR = str(_QUANTLAB_DIR.parent / "data" / "rdagent" / "factors")
 
 def cmd_list(args):
     """列出注册表中的因子。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry
 
     registry = CodeFactorRegistry(args.code_dir, args.registry)
     entries = registry.get_all()
@@ -76,7 +76,7 @@ def cmd_list(args):
 
 def cmd_show(args):
     """查看因子详情。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry
     from dataclasses import asdict
 
     registry = CodeFactorRegistry(args.code_dir, args.registry)
@@ -118,7 +118,7 @@ def cmd_show(args):
 
 def cmd_register(args):
     """手动注册因子。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry, CodeFactorExecutor
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry, CodeFactorExecutor
 
     registry = CodeFactorRegistry(args.code_dir, args.registry)
 
@@ -158,7 +158,7 @@ def cmd_register(args):
 
 def cmd_retire(args):
     """退役因子。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry
 
     registry = CodeFactorRegistry(args.code_dir, args.registry)
     try:
@@ -170,7 +170,7 @@ def cmd_retire(args):
 
 def cmd_activate(args):
     """恢复因子为 active。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry
 
     registry = CodeFactorRegistry(args.code_dir, args.registry)
     try:
@@ -186,7 +186,7 @@ def cmd_activate(args):
 
 def cmd_update_weights(args):
     """更新因子权重。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry
 
     registry = CodeFactorRegistry(args.code_dir, args.registry)
 
@@ -209,7 +209,7 @@ def cmd_update_weights(args):
 
 def cmd_export(args):
     """导出注册表。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry
     from dataclasses import asdict
 
     registry = CodeFactorRegistry(args.code_dir, args.registry)
@@ -240,7 +240,7 @@ def cmd_export(args):
 
 def cmd_configs(args):
     """查看进化配置。"""
-    from quantlab.signal.signal_rdagent import EvolutionConfig
+    from quantlab.signals.signal_rdagent import EvolutionConfig
 
     configs = EvolutionConfig.load_all(args.configs_file)
 

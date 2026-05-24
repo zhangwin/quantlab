@@ -484,7 +484,7 @@ class BacktestRunner:
         # M2 AlphaSignalPipeline
         if cfg.enable_alpha:
             try:
-                from quantlab.signal.signal_alpha import (
+                from quantlab.signals.signal_alpha import (
                     AlphaSignalPipeline,
                     FactorRegistry,
                 )
@@ -503,7 +503,7 @@ class BacktestRunner:
         # M3 KronosSignalPipeline
         if cfg.enable_kronos:
             try:
-                from quantlab.signal.signal_kronos import (
+                from quantlab.signals.signal_kronos import (
                     FinetuneRecipe,
                     KronosSignalPipeline,
                 )
@@ -520,7 +520,7 @@ class BacktestRunner:
         # M4 RDAgentSignalPipeline
         if cfg.enable_rdagent:
             try:
-                from quantlab.signal.signal_rdagent import (
+                from quantlab.signals.signal_rdagent import (
                     CodeFactorExecutor,
                     CodeFactorRegistry,
                     RDAgentSignalPipeline,
@@ -540,7 +540,7 @@ class BacktestRunner:
                 logger.warning("M4 RDAgentSignalPipeline init failed: %s", e)
 
         # M5 SignalEnsemblePipeline
-        from quantlab.signal.signal_ensemble import SignalEnsemblePipeline
+        from quantlab.signals.signal_ensemble import SignalEnsemblePipeline
 
         self._ensemble = SignalEnsemblePipeline(
             ic_lookback=cfg.ensemble_ic_lookback,

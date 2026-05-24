@@ -20,6 +20,7 @@ env/
 *.swo
 
 # Data (downloaded at runtime)
+quantlab/export/
 quantlab/A_data/
 *.bin
 *.day.bin

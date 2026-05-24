@@ -22,7 +22,7 @@ DEFAULT_CONFIG = str(_QUANTLAB_DIR / "configs" / "factors.yaml")
 
 
 def cmd_list(args):
-    from quantlab.signal.signal_alpha import FactorRegistry
+    from quantlab.signals.signal_alpha import FactorRegistry
     reg = FactorRegistry(args.config)
     factors = reg.list(category=args.category, source=args.source)
     print(f"共 {len(factors)} 个因子 (总计 {len(reg)} 个)")
@@ -35,7 +35,7 @@ def cmd_list(args):
 
 
 def cmd_summary(args):
-    from quantlab.signal.signal_alpha import FactorRegistry
+    from quantlab.signals.signal_alpha import FactorRegistry
     reg = FactorRegistry(args.config)
     df = reg.summary()
     print(df.to_string(index=False))
@@ -49,7 +49,7 @@ def cmd_summary(args):
 
 
 def cmd_add(args):
-    from quantlab.signal.signal_alpha import FactorRegistry
+    from quantlab.signals.signal_alpha import FactorRegistry
     reg = FactorRegistry(args.config)
     fd = reg.add(args.name, args.expr, args.category, args.source)
     reg.save()
@@ -58,7 +58,7 @@ def cmd_add(args):
 
 
 def cmd_remove(args):
-    from quantlab.signal.signal_alpha import FactorRegistry
+    from quantlab.signals.signal_alpha import FactorRegistry
     reg = FactorRegistry(args.config)
     reg.remove(args.name)
     reg.save()
@@ -66,7 +66,7 @@ def cmd_remove(args):
 
 
 def cmd_enable(args):
-    from quantlab.signal.signal_alpha import FactorRegistry
+    from quantlab.signals.signal_alpha import FactorRegistry
     reg = FactorRegistry(args.config)
     reg.enable(args.name)
     reg.save()
@@ -74,7 +74,7 @@ def cmd_enable(args):
 
 
 def cmd_disable(args):
-    from quantlab.signal.signal_alpha import FactorRegistry
+    from quantlab.signals.signal_alpha import FactorRegistry
     reg = FactorRegistry(args.config)
     reg.disable(args.name)
     reg.save()
@@ -82,7 +82,7 @@ def cmd_disable(args):
 
 
 def cmd_init(args):
-    from quantlab.signal.signal_alpha import FactorRegistry
+    from quantlab.signals.signal_alpha import FactorRegistry
     config_path = Path(args.config)
     if config_path.exists():
         confirm = input(f"{config_path} 已存在，是否覆盖？[y/N] ").strip().lower()

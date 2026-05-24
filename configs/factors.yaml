@@ -1,0 +1,949 @@
+factors:
+- name: KMID
+  expression: ($close-$open)/$open
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: KLEN
+  expression: ($high-$low)/$open
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: KMID2
+  expression: ($close-$open)/($high-$low+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: KUP
+  expression: ($high-Greater($open,$close))/$open
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: KUP2
+  expression: ($high-Greater($open,$close))/($high-$low+1e-12)
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: KLOW
+  expression: (Less($open,$close)-$low)/$open
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: KLOW2
+  expression: (Less($open,$close)-$low)/($high-$low+1e-12)
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: KSFT
+  expression: (2*$close-$high-$low)/$open
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: KSFT2
+  expression: (2*$close-$high-$low)/($high-$low+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: OPEN0
+  expression: $open/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: HIGH0
+  expression: $high/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: LOW0
+  expression: $low/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VWAP0
+  expression: $vwap/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: ROC5
+  expression: Ref($close, 5)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: ROC10
+  expression: Ref($close, 10)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: ROC20
+  expression: Ref($close, 20)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: ROC30
+  expression: Ref($close, 30)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: ROC60
+  expression: Ref($close, 60)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MA5
+  expression: Mean($close, 5)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MA10
+  expression: Mean($close, 10)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MA20
+  expression: Mean($close, 20)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MA30
+  expression: Mean($close, 30)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MA60
+  expression: Mean($close, 60)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: STD5
+  expression: Std($close, 5)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: STD10
+  expression: Std($close, 10)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: STD20
+  expression: Std($close, 20)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: STD30
+  expression: Std($close, 30)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: STD60
+  expression: Std($close, 60)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: BETA5
+  expression: Slope($close, 5)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: BETA10
+  expression: Slope($close, 10)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: BETA20
+  expression: Slope($close, 20)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: BETA30
+  expression: Slope($close, 30)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: BETA60
+  expression: Slope($close, 60)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSQR5
+  expression: Rsquare($close, 5)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSQR10
+  expression: Rsquare($close, 10)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSQR20
+  expression: Rsquare($close, 20)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSQR30
+  expression: Rsquare($close, 30)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSQR60
+  expression: Rsquare($close, 60)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RESI5
+  expression: Resi($close, 5)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RESI10
+  expression: Resi($close, 10)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RESI20
+  expression: Resi($close, 20)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RESI30
+  expression: Resi($close, 30)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RESI60
+  expression: Resi($close, 60)/$close
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MAX5
+  expression: Max($high, 5)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MAX10
+  expression: Max($high, 10)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MAX20
+  expression: Max($high, 20)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MAX30
+  expression: Max($high, 30)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MAX60
+  expression: Max($high, 60)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MIN5
+  expression: Min($low, 5)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MIN10
+  expression: Min($low, 10)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MIN20
+  expression: Min($low, 20)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MIN30
+  expression: Min($low, 30)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: MIN60
+  expression: Min($low, 60)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLU5
+  expression: Quantile($close, 5, 0.8)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLU10
+  expression: Quantile($close, 10, 0.8)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLU20
+  expression: Quantile($close, 20, 0.8)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLU30
+  expression: Quantile($close, 30, 0.8)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLU60
+  expression: Quantile($close, 60, 0.8)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLD5
+  expression: Quantile($close, 5, 0.2)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLD10
+  expression: Quantile($close, 10, 0.2)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLD20
+  expression: Quantile($close, 20, 0.2)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLD30
+  expression: Quantile($close, 30, 0.2)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: QTLD60
+  expression: Quantile($close, 60, 0.2)/$close
+  category: volatility
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RANK5
+  expression: Rank($close, 5)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RANK10
+  expression: Rank($close, 10)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RANK20
+  expression: Rank($close, 20)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RANK30
+  expression: Rank($close, 30)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RANK60
+  expression: Rank($close, 60)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSV5
+  expression: ($close-Min($low,5))/(Max($high,5)-Min($low,5)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSV10
+  expression: ($close-Min($low,10))/(Max($high,10)-Min($low,10)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSV20
+  expression: ($close-Min($low,20))/(Max($high,20)-Min($low,20)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSV30
+  expression: ($close-Min($low,30))/(Max($high,30)-Min($low,30)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: RSV60
+  expression: ($close-Min($low,60))/(Max($high,60)-Min($low,60)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMAX5
+  expression: IdxMax($high, 5)/5
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMAX10
+  expression: IdxMax($high, 10)/10
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMAX20
+  expression: IdxMax($high, 20)/20
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMAX30
+  expression: IdxMax($high, 30)/30
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMAX60
+  expression: IdxMax($high, 60)/60
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMIN5
+  expression: IdxMin($low, 5)/5
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMIN10
+  expression: IdxMin($low, 10)/10
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMIN20
+  expression: IdxMin($low, 20)/20
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMIN30
+  expression: IdxMin($low, 30)/30
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMIN60
+  expression: IdxMin($low, 60)/60
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMXD5
+  expression: (IdxMax($high,5)-IdxMin($low,5))/5
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMXD10
+  expression: (IdxMax($high,10)-IdxMin($low,10))/10
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMXD20
+  expression: (IdxMax($high,20)-IdxMin($low,20))/20
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMXD30
+  expression: (IdxMax($high,30)-IdxMin($low,30))/30
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: IMXD60
+  expression: (IdxMax($high,60)-IdxMin($low,60))/60
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORR5
+  expression: Corr($close, Log($volume+1), 5)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORR10
+  expression: Corr($close, Log($volume+1), 10)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORR20
+  expression: Corr($close, Log($volume+1), 20)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORR30
+  expression: Corr($close, Log($volume+1), 30)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORR60
+  expression: Corr($close, Log($volume+1), 60)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORD5
+  expression: Corr($close/Ref($close,1), Log($volume/Ref($volume,1)+1), 5)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORD10
+  expression: Corr($close/Ref($close,1), Log($volume/Ref($volume,1)+1), 10)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORD20
+  expression: Corr($close/Ref($close,1), Log($volume/Ref($volume,1)+1), 20)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORD30
+  expression: Corr($close/Ref($close,1), Log($volume/Ref($volume,1)+1), 30)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CORD60
+  expression: Corr($close/Ref($close,1), Log($volume/Ref($volume,1)+1), 60)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTP5
+  expression: Mean($close>Ref($close,1), 5)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTP10
+  expression: Mean($close>Ref($close,1), 10)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTP20
+  expression: Mean($close>Ref($close,1), 20)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTP30
+  expression: Mean($close>Ref($close,1), 30)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTP60
+  expression: Mean($close>Ref($close,1), 60)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTN5
+  expression: Mean($close<Ref($close,1), 5)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTN10
+  expression: Mean($close<Ref($close,1), 10)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTN20
+  expression: Mean($close<Ref($close,1), 20)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTN30
+  expression: Mean($close<Ref($close,1), 30)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTN60
+  expression: Mean($close<Ref($close,1), 60)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTD5
+  expression: Mean($close>Ref($close,1),5)-Mean($close<Ref($close,1),5)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTD10
+  expression: Mean($close>Ref($close,1),10)-Mean($close<Ref($close,1),10)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTD20
+  expression: Mean($close>Ref($close,1),20)-Mean($close<Ref($close,1),20)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTD30
+  expression: Mean($close>Ref($close,1),30)-Mean($close<Ref($close,1),30)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: CNTD60
+  expression: Mean($close>Ref($close,1),60)-Mean($close<Ref($close,1),60)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMP5
+  expression: Sum(Greater($close-Ref($close,1),0),5)/(Sum(Abs($close-Ref($close,1)),5)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMP10
+  expression: Sum(Greater($close-Ref($close,1),0),10)/(Sum(Abs($close-Ref($close,1)),10)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMP20
+  expression: Sum(Greater($close-Ref($close,1),0),20)/(Sum(Abs($close-Ref($close,1)),20)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMP30
+  expression: Sum(Greater($close-Ref($close,1),0),30)/(Sum(Abs($close-Ref($close,1)),30)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMP60
+  expression: Sum(Greater($close-Ref($close,1),0),60)/(Sum(Abs($close-Ref($close,1)),60)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMN5
+  expression: Sum(Greater(Ref($close,1)-$close,0),5)/(Sum(Abs($close-Ref($close,1)),5)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMN10
+  expression: Sum(Greater(Ref($close,1)-$close,0),10)/(Sum(Abs($close-Ref($close,1)),10)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMN20
+  expression: Sum(Greater(Ref($close,1)-$close,0),20)/(Sum(Abs($close-Ref($close,1)),20)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMN30
+  expression: Sum(Greater(Ref($close,1)-$close,0),30)/(Sum(Abs($close-Ref($close,1)),30)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMN60
+  expression: Sum(Greater(Ref($close,1)-$close,0),60)/(Sum(Abs($close-Ref($close,1)),60)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMD5
+  expression: (Sum(Greater($close-Ref($close,1),0),5)-Sum(Greater(Ref($close,1)-$close,0),5))/(Sum(Abs($close-Ref($close,1)),5)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMD10
+  expression: (Sum(Greater($close-Ref($close,1),0),10)-Sum(Greater(Ref($close,1)-$close,0),10))/(Sum(Abs($close-Ref($close,1)),10)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMD20
+  expression: (Sum(Greater($close-Ref($close,1),0),20)-Sum(Greater(Ref($close,1)-$close,0),20))/(Sum(Abs($close-Ref($close,1)),20)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMD30
+  expression: (Sum(Greater($close-Ref($close,1),0),30)-Sum(Greater(Ref($close,1)-$close,0),30))/(Sum(Abs($close-Ref($close,1)),30)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: SUMD60
+  expression: (Sum(Greater($close-Ref($close,1),0),60)-Sum(Greater(Ref($close,1)-$close,0),60))/(Sum(Abs($close-Ref($close,1)),60)+1e-12)
+  category: momentum
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VMA5
+  expression: Mean($volume, 5)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VMA10
+  expression: Mean($volume, 10)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VMA20
+  expression: Mean($volume, 20)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VMA30
+  expression: Mean($volume, 30)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VMA60
+  expression: Mean($volume, 60)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSTD5
+  expression: Std($volume, 5)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSTD10
+  expression: Std($volume, 10)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSTD20
+  expression: Std($volume, 20)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSTD30
+  expression: Std($volume, 30)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSTD60
+  expression: Std($volume, 60)/($volume+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: WVMA5
+  expression: Std(Abs($close/Ref($close,1)-1)*$volume,5)/(Mean(Abs($close/Ref($close,1)-1)*$volume,5)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: WVMA10
+  expression: Std(Abs($close/Ref($close,1)-1)*$volume,10)/(Mean(Abs($close/Ref($close,1)-1)*$volume,10)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: WVMA20
+  expression: Std(Abs($close/Ref($close,1)-1)*$volume,20)/(Mean(Abs($close/Ref($close,1)-1)*$volume,20)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: WVMA30
+  expression: Std(Abs($close/Ref($close,1)-1)*$volume,30)/(Mean(Abs($close/Ref($close,1)-1)*$volume,30)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: WVMA60
+  expression: Std(Abs($close/Ref($close,1)-1)*$volume,60)/(Mean(Abs($close/Ref($close,1)-1)*$volume,60)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMP5
+  expression: Sum(Greater($volume-Ref($volume,1),0),5)/(Sum(Abs($volume-Ref($volume,1)),5)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMP10
+  expression: Sum(Greater($volume-Ref($volume,1),0),10)/(Sum(Abs($volume-Ref($volume,1)),10)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMP20
+  expression: Sum(Greater($volume-Ref($volume,1),0),20)/(Sum(Abs($volume-Ref($volume,1)),20)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMP30
+  expression: Sum(Greater($volume-Ref($volume,1),0),30)/(Sum(Abs($volume-Ref($volume,1)),30)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMP60
+  expression: Sum(Greater($volume-Ref($volume,1),0),60)/(Sum(Abs($volume-Ref($volume,1)),60)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMN5
+  expression: Sum(Greater(Ref($volume,1)-$volume,0),5)/(Sum(Abs($volume-Ref($volume,1)),5)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMN10
+  expression: Sum(Greater(Ref($volume,1)-$volume,0),10)/(Sum(Abs($volume-Ref($volume,1)),10)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMN20
+  expression: Sum(Greater(Ref($volume,1)-$volume,0),20)/(Sum(Abs($volume-Ref($volume,1)),20)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMN30
+  expression: Sum(Greater(Ref($volume,1)-$volume,0),30)/(Sum(Abs($volume-Ref($volume,1)),30)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMN60
+  expression: Sum(Greater(Ref($volume,1)-$volume,0),60)/(Sum(Abs($volume-Ref($volume,1)),60)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMD5
+  expression: (Sum(Greater($volume-Ref($volume,1),0),5)-Sum(Greater(Ref($volume,1)-$volume,0),5))/(Sum(Abs($volume-Ref($volume,1)),5)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMD10
+  expression: (Sum(Greater($volume-Ref($volume,1),0),10)-Sum(Greater(Ref($volume,1)-$volume,0),10))/(Sum(Abs($volume-Ref($volume,1)),10)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMD20
+  expression: (Sum(Greater($volume-Ref($volume,1),0),20)-Sum(Greater(Ref($volume,1)-$volume,0),20))/(Sum(Abs($volume-Ref($volume,1)),20)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMD30
+  expression: (Sum(Greater($volume-Ref($volume,1),0),30)-Sum(Greater(Ref($volume,1)-$volume,0),30))/(Sum(Abs($volume-Ref($volume,1)),30)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'
+- name: VSUMD60
+  expression: (Sum(Greater($volume-Ref($volume,1),0),60)-Sum(Greater(Ref($volume,1)-$volume,0),60))/(Sum(Abs($volume-Ref($volume,1)),60)+1e-12)
+  category: liquidity
+  source: alpha158
+  enabled: true
+  added_date: '2026-05-24'

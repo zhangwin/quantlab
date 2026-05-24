@@ -100,7 +100,7 @@ def finetune_with_recipe(args):
     from quantlab._compat import import_kronos_module
     kronos_mod = import_kronos_module("model.kronos")
     KronosTokenizer, Kronos = kronos_mod.KronosTokenizer, kronos_mod.Kronos
-    from quantlab.signal.signal_kronos import FinetuneRecipe
+    from quantlab.signals.signal_kronos import FinetuneRecipe
 
     # 加载方案
     recipe = FinetuneRecipe.load(args.recipes_file, args.recipe)
@@ -171,7 +171,7 @@ def finetune_with_recipe(args):
     os.makedirs(output_dir, exist_ok=True)
 
     # 使用 signal_kronos 的 KronosFinetuner 进行微调
-    from quantlab.signal.signal_kronos import KronosFinetuner
+    from quantlab.signals.signal_kronos import KronosFinetuner
     finetuner = KronosFinetuner(tokenizer, model, device=device)
 
     # 转换数据格式（pkl 格式可能需要适配）

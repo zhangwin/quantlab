@@ -67,7 +67,7 @@ def load_signal_csv(path: str, anchor_date: str = None) -> pd.Series:
 
 def combine_single_day(ensemble, signals, anchor_date, top_k):
     """单日融合。"""
-    from quantlab.signal.signal_ensemble import EnsembleOutput
+    from quantlab.signals.signal_ensemble import EnsembleOutput
 
     output = ensemble.combine(signals, anchor_date)
 
@@ -132,7 +132,7 @@ def main():
     if not args.anchor_date and not args.start:
         parser.error("请指定 --anchor-date（单日）或 --start/--end（批量）")
 
-    from quantlab.signal.signal_ensemble import SignalEnsemblePipeline
+    from quantlab.signals.signal_ensemble import SignalEnsemblePipeline
 
     ensemble = SignalEnsemblePipeline(
         ic_lookback=args.ic_lookback,

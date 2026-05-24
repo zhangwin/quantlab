@@ -63,7 +63,7 @@ def main():
 
     args = parser.parse_args()
 
-    from quantlab.signal.signal_rdagent import (
+    from quantlab.signals.signal_rdagent import (
         EvolutionConfig,
         CodeFactorRegistry,
         EvolutionRunner,

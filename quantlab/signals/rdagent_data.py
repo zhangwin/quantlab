@@ -60,7 +60,7 @@ def cmd_init(args):
     # 检查进化配置文件
     configs_path = Path(args.configs_file)
     if configs_path.exists():
-        from quantlab.signal.signal_rdagent import EvolutionConfig
+        from quantlab.signals.signal_rdagent import EvolutionConfig
         configs = EvolutionConfig.load_all(str(configs_path))
         print(f"进化配置文件: {configs_path} ({len(configs)} 个配置)")
     else:
@@ -76,7 +76,7 @@ def cmd_init(args):
 
 def cmd_import_factors(args):
     """从目录批量导入因子代码。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry, CodeFactorExecutor
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry, CodeFactorExecutor
 
     source_dir = Path(args.source_dir)
     if not source_dir.is_dir():
@@ -123,7 +123,7 @@ def cmd_import_factors(args):
 
 def cmd_import_workspace(args):
     """从 RD-Agent workspace 导入因子。"""
-    from quantlab.signal.signal_rdagent import (
+    from quantlab.signals.signal_rdagent import (
         CodeFactorRegistry,
         EvolutionRunner,
         EvolutionConfig,
@@ -154,7 +154,7 @@ def cmd_import_workspace(args):
 
 def cmd_status(args):
     """查看因子系统状态。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry
 
     code_dir = Path(args.code_dir)
     registry_path = Path(args.registry)
@@ -215,7 +215,7 @@ def cmd_status(args):
     # 检查进化配置
     configs_path = Path(args.configs_file)
     if configs_path.exists():
-        from quantlab.signal.signal_rdagent import EvolutionConfig
+        from quantlab.signals.signal_rdagent import EvolutionConfig
         configs = EvolutionConfig.load_all(str(configs_path))
         print(f"\n进化配置: {len(configs)} 个")
         for c in configs:
@@ -224,7 +224,7 @@ def cmd_status(args):
 
 def cmd_validate(args):
     """验证所有因子代码。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry, CodeFactorExecutor
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry, CodeFactorExecutor
 
     registry = CodeFactorRegistry(args.code_dir, args.registry)
     executor = CodeFactorExecutor()
@@ -257,7 +257,7 @@ def cmd_validate(args):
 
 def cmd_cleanup(args):
     """清理退役因子。"""
-    from quantlab.signal.signal_rdagent import CodeFactorRegistry
+    from quantlab.signals.signal_rdagent import CodeFactorRegistry
 
     registry = CodeFactorRegistry(args.code_dir, args.registry)
     retired = [e for e in registry.get_all() if e.status == "retired"]

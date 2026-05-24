@@ -14,7 +14,7 @@ import pandas as pd
 import pytest
 import yaml
 
-from quantlab.signal.signal_kronos import (
+from quantlab.signals.signal_kronos import (
     FinetuneRecipe,
     KronosOutput,
     RecipeReport,
@@ -222,7 +222,7 @@ class TestKronosFinetuner:
     def finetuner(self):
         if SKIP_NO_KRONOS:
             pytest.skip("Kronos model not available")
-        from quantlab.signal.signal_kronos import KronosFinetuner
+        from quantlab.signals.signal_kronos import KronosFinetuner
 
         tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-base")
         model = Kronos.from_pretrained("NeoQuasar/Kronos-base")
@@ -292,7 +292,7 @@ class TestKronosInference:
     @pytest.mark.skipif(SKIP_NO_KRONOS, reason="Kronos model not available")
     def test_output_dimensions(self):
         """输出维度与输入股票数一致。"""
-        from quantlab.signal.signal_kronos import KronosInference, FinetuneRecipe
+        from quantlab.signals.signal_kronos import KronosInference, FinetuneRecipe
 
         tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-base")
         model = Kronos.from_pretrained("NeoQuasar/Kronos-base")
@@ -343,7 +343,7 @@ class TestKronosSignalPipeline:
     def test_daily_run_produces_output(self):
         """daily_run 返回非空 KronosOutput。"""
         from quantlab.data.data_manager import DataManager
-        from quantlab.signal.signal_kronos import FinetuneRecipe, KronosSignalPipeline
+        from quantlab.signals.signal_kronos import FinetuneRecipe, KronosSignalPipeline
 
         dm = DataManager(provider_uri=QLIB_DATA_DIR, market="csi300")
         dm.init_qlib()
@@ -371,7 +371,7 @@ class TestKronosSignalPipeline:
     )
     def test_switch_recipe(self):
         """switch_recipe 后使用新方案。"""
-        from quantlab.signal.signal_kronos import FinetuneRecipe, KronosSignalPipeline
+        from quantlab.signals.signal_kronos import FinetuneRecipe, KronosSignalPipeline
 
         recipe1 = FinetuneRecipe.load(DEFAULT_RECIPES, "conservative")
         pipeline = KronosSignalPipeline(recipe=recipe1)

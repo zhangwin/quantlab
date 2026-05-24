@@ -565,7 +565,7 @@ python rdagent_registry_cli.py configs --name mean_revert_focus
 完整描述"如何驱动 RD-Agent 进化"的配置。
 
 ```python
-from quantlab.signal.signal_rdagent import EvolutionConfig
+from quantlab.signals.signal_rdagent import EvolutionConfig
 
 # 从 YAML 加载
 config = EvolutionConfig.load("configs/rdagent_evolution.yaml", "mean_revert_focus")
@@ -623,7 +623,7 @@ config.save("path/to/config.yaml")
 管理 RD-Agent 产出的 Python 因子代码，提供 CRUD 操作和 ICIR 权重计算。
 
 ```python
-from quantlab.signal.signal_rdagent import CodeFactorRegistry
+from quantlab.signals.signal_rdagent import CodeFactorRegistry
 
 # 初始化
 registry = CodeFactorRegistry(
@@ -699,7 +699,7 @@ weight_i = max(0, ICIR_i) / Σ max(0, ICIR_j)
 在隔离环境中安全执行 LLM 生成的 Python 因子代码。
 
 ```python
-from quantlab.signal.signal_rdagent import CodeFactorExecutor
+from quantlab.signals.signal_rdagent import CodeFactorExecutor
 
 # 初始化（subprocess 模式）
 executor = CodeFactorExecutor(sandbox_mode="subprocess", timeout_sec=30)
@@ -750,7 +750,7 @@ for name, result in results.items():
 包装 RD-Agent 进化循环，离线运行，产出经过验证的因子代码。
 
 ```python
-from quantlab.signal.signal_rdagent import (
+from quantlab.signals.signal_rdagent import (
     EvolutionConfig, CodeFactorRegistry, EvolutionRunner,
 )
 
@@ -802,7 +802,7 @@ registered = runner.validate_and_register(raw_factors)
 日常回测/实盘入口，用注册表中的 active 因子计算加权合成信号。
 
 ```python
-from quantlab.signal.signal_rdagent import (
+from quantlab.signals.signal_rdagent import (
     CodeFactorRegistry, CodeFactorExecutor, RDAgentSignalPipeline,
 )
 
@@ -1289,7 +1289,7 @@ python alpha_registry_cli.py list    # M2 注册表管理
 M4 的 `RDAgentSignalPipeline.compute()` 返回 `RDAgentOutput`，其 `signal` 字段是 `pd.Series`，可直接传给 M5 信号融合模块：
 
 ```python
-from quantlab.signal.signal_rdagent import (
+from quantlab.signals.signal_rdagent import (
     CodeFactorRegistry, CodeFactorExecutor, RDAgentSignalPipeline,
 )
 

@@ -44,7 +44,7 @@ def main():
         return
 
     from quantlab.data.data_manager import DataManager
-    from quantlab.signal.signal_kronos import FinetuneRecipe, KronosSignalPipeline
+    from quantlab.signals.signal_kronos import FinetuneRecipe, KronosSignalPipeline
 
     # 加载方案
     recipe = FinetuneRecipe.load(args.recipes_file, args.recipe)

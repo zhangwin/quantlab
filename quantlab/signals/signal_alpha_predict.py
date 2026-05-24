@@ -41,7 +41,7 @@ def main():
         return
 
     from quantlab.data.data_manager import DataManager
-    from quantlab.signal.signal_alpha import FactorRegistry, AlphaSignalPipeline
+    from quantlab.signals.signal_alpha import FactorRegistry, AlphaSignalPipeline
 
     dm = DataManager(provider_uri=args.data_dir, market=args.market)
     dm.init_qlib()

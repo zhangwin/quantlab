@@ -47,7 +47,7 @@ def load_matrix_csv(path: str) -> pd.DataFrame:
 
 def cmd_report(args):
     """贡献度报告。"""
-    from quantlab.signal.signal_ensemble import (
+    from quantlab.signals.signal_ensemble import (
         SignalEnsemblePipeline, ICWeightEngine, EnsembleMonitor,
     )
     from scipy import stats as sp_stats
@@ -92,7 +92,7 @@ def cmd_report(args):
 
 def cmd_check(args):
     """告警检查。"""
-    from quantlab.signal.signal_ensemble import EnsembleMonitor
+    from quantlab.signals.signal_ensemble import EnsembleMonitor
     from scipy import stats as sp_stats
 
     signal_df = load_matrix_csv(args.signal_csv)
@@ -192,7 +192,7 @@ def cmd_ic_history(args):
 
 def cmd_backtest(args):
     """回测监控：重建融合过程并分析。"""
-    from quantlab.signal.signal_ensemble import SignalEnsemblePipeline
+    from quantlab.signals.signal_ensemble import SignalEnsemblePipeline
 
     return_df = load_matrix_csv(args.return_csv)
     alpha_df = load_matrix_csv(args.alpha_signal) if args.alpha_signal else pd.DataFrame()

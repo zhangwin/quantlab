@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from quantlab.signal.signal_ensemble import (
+from quantlab.signals.signal_ensemble import (
     SignalNormalizer,
     ICWeightEngine,
     EnsembleMonitor,

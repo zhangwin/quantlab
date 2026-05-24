@@ -24,7 +24,7 @@ DEFAULT_RECIPES = str(_QUANTLAB_DIR / "configs" / "kronos_recipes.yaml")
 
 
 def cmd_list(args):
-    from quantlab.signal.signal_kronos import FinetuneRecipe
+    from quantlab.signals.signal_kronos import FinetuneRecipe
     recipes = FinetuneRecipe.load_all(args.recipes_file)
 
     print(f"共 {len(recipes)} 个方案:\n")
@@ -43,7 +43,7 @@ def cmd_list(args):
 
 
 def cmd_show(args):
-    from quantlab.signal.signal_kronos import FinetuneRecipe
+    from quantlab.signals.signal_kronos import FinetuneRecipe
     from dataclasses import asdict
     recipe = FinetuneRecipe.load(args.recipes_file, args.name)
     print(f"方案: {recipe.name}")
@@ -57,7 +57,7 @@ def cmd_show(args):
 
 
 def cmd_create(args):
-    from quantlab.signal.signal_kronos import FinetuneRecipe
+    from quantlab.signals.signal_kronos import FinetuneRecipe
 
     kwargs = {"name": args.name}
     if args.description:

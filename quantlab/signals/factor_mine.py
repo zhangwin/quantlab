@@ -38,7 +38,7 @@ def _print_reports(reports, top_n=20):
 
 def cmd_variants(args):
     from quantlab.data.data_manager import DataManager
-    from quantlab.signal.signal_alpha import FactorValidator, FactorRegistry, FactorMiner
+    from quantlab.signals.signal_alpha import FactorValidator, FactorRegistry, FactorMiner
 
     dm = DataManager(provider_uri=args.data_dir, market=args.market)
     dm.init_qlib()
@@ -60,7 +60,7 @@ def cmd_variants(args):
 
 def cmd_combinations(args):
     from quantlab.data.data_manager import DataManager
-    from quantlab.signal.signal_alpha import FactorValidator, FactorRegistry, FactorMiner
+    from quantlab.signals.signal_alpha import FactorValidator, FactorRegistry, FactorMiner
 
     dm = DataManager(provider_uri=args.data_dir, market=args.market)
     dm.init_qlib()
@@ -79,7 +79,7 @@ def cmd_combinations(args):
 
 def cmd_template(args):
     from quantlab.data.data_manager import DataManager
-    from quantlab.signal.signal_alpha import FactorValidator, FactorRegistry, FactorMiner
+    from quantlab.signals.signal_alpha import FactorValidator, FactorRegistry, FactorMiner
 
     dm = DataManager(provider_uri=args.data_dir, market=args.market)
     dm.init_qlib()
@@ -101,7 +101,7 @@ def cmd_template(args):
 
 def cmd_auto(args):
     from quantlab.data.data_manager import DataManager
-    from quantlab.signal.signal_alpha import FactorValidator, FactorRegistry, FactorMiner
+    from quantlab.signals.signal_alpha import FactorValidator, FactorRegistry, FactorMiner
 
     dm = DataManager(provider_uri=args.data_dir, market=args.market)
     dm.init_qlib()

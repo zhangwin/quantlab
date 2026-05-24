@@ -12,7 +12,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from quantlab.signal.signal_alpha import (
+from quantlab.signals.signal_alpha import (
     FactorDef,
     FactorRegistry,
     FactorReport,
@@ -206,7 +206,7 @@ class TestFactorValidator:
         if SKIP_NO_DATA:
             pytest.skip(skip_reason)
         from quantlab.data.data_manager import DataManager
-        from quantlab.signal.signal_alpha import FactorValidator
+        from quantlab.signals.signal_alpha import FactorValidator
         dm = DataManager(provider_uri=QLIB_DATA_DIR, market="csi300")
         dm.init_qlib()
         return FactorValidator(dm)
@@ -272,7 +272,7 @@ class TestAlphaSignalPipeline:
             pytest.skip("lightgbm not installed")
 
         from quantlab.data.data_manager import DataManager
-        from quantlab.signal.signal_alpha import FactorRegistry, AlphaSignalPipeline
+        from quantlab.signals.signal_alpha import FactorRegistry, AlphaSignalPipeline
 
         dm = DataManager(provider_uri=QLIB_DATA_DIR, market="csi300")
         dm.init_qlib()

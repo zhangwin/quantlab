@@ -563,7 +563,7 @@ python kronos_recipe_cli.py delete my_recipe
 ### FinetuneRecipe 微调方案
 
 ```python
-from quantlab.signal.signal_kronos import FinetuneRecipe
+from quantlab.signals.signal_kronos import FinetuneRecipe
 
 # 加载预设方案
 recipe = FinetuneRecipe.load("configs/kronos_recipes.yaml", "conservative")
@@ -638,7 +638,7 @@ custom.save("configs/kronos_recipes.yaml")
 
 ```python
 from model.kronos import KronosTokenizer, Kronos
-from quantlab.signal.signal_kronos import KronosFinetuner, FinetuneRecipe
+from quantlab.signals.signal_kronos import KronosFinetuner, FinetuneRecipe
 
 # 加载预训练模型
 tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-base")
@@ -666,7 +666,7 @@ ft_tokenizer, ft_model = finetuner.finetune(symbol_data, recipe)
 ### KronosInference 推理执行器
 
 ```python
-from quantlab.signal.signal_kronos import KronosInference, FinetuneRecipe
+from quantlab.signals.signal_kronos import KronosInference, FinetuneRecipe
 
 inference = KronosInference(device="cuda", max_context=512)
 
@@ -707,7 +707,7 @@ print(output.pred_klines)    # Dict: symbol → 预测 K 线 DataFrame
 日常回测/实盘的入口，封装微调 + 推理一体化流程。
 
 ```python
-from quantlab.signal.signal_kronos import FinetuneRecipe, KronosSignalPipeline
+from quantlab.signals.signal_kronos import FinetuneRecipe, KronosSignalPipeline
 
 recipe = FinetuneRecipe.load("configs/kronos_recipes.yaml", "conservative")
 pipeline = KronosSignalPipeline(
@@ -740,7 +740,7 @@ pipeline.switch_recipe(new_recipe)
 ### FinetuneExperiment 实验管理
 
 ```python
-from quantlab.signal.signal_kronos import FinetuneRecipe, FinetuneExperiment
+from quantlab.signals.signal_kronos import FinetuneRecipe, FinetuneExperiment
 
 recipes = FinetuneRecipe.load_all("configs/kronos_recipes.yaml")
 exp = FinetuneExperiment(

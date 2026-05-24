@@ -38,7 +38,7 @@ def main():
         return
 
     from quantlab.data.data_manager import DataManager
-    from quantlab.signal.signal_alpha import FactorValidator, FactorRegistry
+    from quantlab.signals.signal_alpha import FactorValidator, FactorRegistry
 
     dm = DataManager(provider_uri=args.data_dir, market=args.market)
     dm.init_qlib()
