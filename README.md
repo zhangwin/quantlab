@@ -14,10 +14,21 @@ A quantitative trading system for China A-share markets, fusing three Microsoft 
 
 ## Recent Additions
 
+- **Production Model-A performance page**: the current registered production Model-A result is now published as a static visual dashboard. Open the [HTML preview](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html) or the source page at [quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html](quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html).
 - **Agentic review layer**: `quantlab.agentic` adds a reusable post-selection review module for liquidity checks, sector-flow exposure, industry concentration, veto/reduce/approve decisions, and daily review exports.
 - **Sector fund-flow data layer**: `quantlab.data.sector_flow_*` downloads, normalizes, aligns, and featurizes sector fund-flow data so it can be joined with the existing Qlib daily calendar and industry map.
 - **Feature article**: [Agentic feature article](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/agentic_feature_article.html) explains the new review layer, sector-flow alignment, daily decision flow, and experiment path.
 - **Project architecture HTML**: [HTML preview](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html) provides a visual map of data, signals, selector fusion, agentic review, execution, risk, evaluation, and operations. The source file is [docs/project_architecture.html](docs/project_architecture.html).
+
+## Production Model-A Performance
+
+[![Model-A 2026 production performance preview](quantlab/trading_strategy_release/assets/modela_2026_performance_preview.svg)](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html)
+
+The production page shows the registered Model-A top5 account curve for 2026 YTD, using the production trading protocol: T+1 09:35 entry, T+3 09:35 exit, and `skip_unbuyable` handling for entry limit-up names. The dashboard compares Model-A against the Baostock SSE Composite benchmark normalized to 1.00.
+
+- Visual dashboard: [HTML preview](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html)
+- Source files: [modela_2026_performance](quantlab/trading_strategy_release/frontend/modela_2026_performance/)
+- Current published metrics through 2026-05-28: Model-A return `164.23%`, final NAV `2.64`, SSE return `1.87%`, relative NAV `2.59x`, max drawdown `-10.14%`, 46 executed signal groups, and 206 completed trades.
 
 ## Architecture
 
@@ -35,7 +46,7 @@ For the latest full-system view, open the [rendered HTML preview](https://htmlpr
 | M1.5 Viewer | `data/data_viewer.py` | CSV export, K-line charts (Plotly), portfolio overview |
 | M2 Alpha | `signal/signal_alpha.py` | Alpha158 + LightGBM (daily trend/momentum signal) |
 | M3 Kronos | `signal/signal_kronos.py` | Kronos 5-day forecast (K-line pattern signal) |
-| M4 RD-Agent | `signal/signal_rdagent.py` | RD-Agent evolved factors (mean-reversion signal) |
+| M4 RD-Agent | `signal/signal_rdagent.py`, `signal/factor_spec.py` | RD-Agent evolved factors and deterministic factor-spec compilation |
 | M5 Ensemble | `signal/signal_ensemble.py` | Signal fusion (rank normalization, expanding IC weighting) |
 | M6 Execution | `execution/execution.py` | T+1 open-price trade execution |
 | M7 Risk | `risk_control/risk_control.py` | Single-stock stoploss, industry cap, portfolio circuit breaker |
@@ -166,6 +177,7 @@ quantlab/
 
 - [Agentic feature article](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/agentic_feature_article.html) - Detailed introduction to the agentic review layer and sector-flow feature design ([source](docs/agentic_feature_article.html))
 - [Rendered architecture map](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html) - Current architecture map and new agentic/sector-flow design ([source](docs/project_architecture.html))
+- [Factor-Spec Pipeline](docs/factor_spec_pipeline.md) - Structured factor specification, deterministic compilation, and sampled smoke testing for RD-Agent-style factor search
 - [DESIGN.md](DESIGN.md) — Architecture overview (Chinese)
 - [DETAIL_DESIGN.md](DETAIL_DESIGN.md) — Detailed module specifications M1-M9 (Chinese)
 - [docs/](docs/) — Per-module usage guides (Chinese)

@@ -14,14 +14,27 @@ A 股 T+1 量化交易系统，融合三个微软开源项目，构建从数据�
 
 ## 最新特性
 
+- **生产 Model-A 收益可视化**：当前已注册的生产 Model-A 结果已经发布为静态可视化页面。可打开 [网页预览](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html)，源码位于 [quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html](quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html)。
 - **Agentic 复核层**：`quantlab.agentic` 提供独立的候选股票复核模块，支持流动性检查、板块资金流暴露、行业集中度检查，以及 `approve/reduce/veto/review` 结构化决策。
 - **板块资金流数据层**：`quantlab.data.sector_flow_*` 支持板块资金流下载、标准化、交易日历对齐和滚动特征生成，可与现有 Qlib 日频数据和行业映射对齐。
 - **新特性介绍文章**：[Agentic 新特性文章](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/agentic_feature_article.html) 详细说明复核层、板块资金流对齐、日频决策流程和实验路线。
 - **项目架构 HTML**：[网页预览](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html) 展示数据、信号、融合选股、Agentic 复核、执行、风控、评估和运维的完整链路。源码文件位于 [docs/project_architecture.html](docs/project_architecture.html)。
 
+## 生产 Model-A 收益可视化
+
+[![Model-A 2026 生产收益可视化预览](quantlab/trading_strategy_release/assets/modela_2026_performance_preview.svg)](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html)
+
+该页面只展示当前生产模型效果：注册 Model-A top5 账户曲线，交易口径为 T+1 09:35 入场、T+3 09:35 出场，入场涨停按 `skip_unbuyable` 处理；基准为 Baostock 上证综合指数，并统一归一化到 1.00 对比。
+
+- 可视化页面：[网页预览](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/quantlab/trading_strategy_release/frontend/modela_2026_performance/index.html)
+- 源码目录：[modela_2026_performance](quantlab/trading_strategy_release/frontend/modela_2026_performance/)
+- 当前发布指标截至 2026-05-28：Model-A 收益 `164.23%`，期末净值 `2.64`，上证指数收益 `1.87%`，相对净值 `2.59x`，最大回撤 `-10.14%`，已执行信号组 46 组，完成交易 206 笔。
+
 ## 系统架构
 
 完整的新设计请优先查看：[网页预览版](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html)。GitHub 普通 `blob` 页面默认展示 HTML 源码，这是平台行为。
+
+<img width="1024" height="1536" alt="QuantLab project architecture" src="https://github.com/user-attachments/assets/e15b27b8-69a3-4df0-ac72-9df71e04c311" />
 
 ```
   T 日收盘触发
@@ -73,7 +86,7 @@ A 股 T+1 量化交易系统，融合三个微软开源项目，构建从数据�
 | M1.5 数据可视化 | `data/data_viewer.py` | CSV 导出、K 线图（Plotly）、持仓概览 |
 | M2 Alpha 信号 | `signal/signal_alpha.py` | Alpha158 + LightGBM（日频趋势/动量信号） |
 | M3 Kronos 信号 | `signal/signal_kronos.py` | Kronos 5 日预测（K 线形态信号） |
-| M4 RD-Agent 信号 | `signal/signal_rdagent.py` | RD-Agent 进化因子（均值回复信号） |
+| M4 RD-Agent 信号 | `signal/signal_rdagent.py`, `signal/factor_spec.py` | RD-Agent 进化因子与确定性 factor-spec 编译 |
 | M5 信号融合 | `signal/signal_ensemble.py` | 排序归一化 + 扩展窗口 IC 加权 |
 | M6 交易执行 | `execution/execution.py` | T+1 开盘价交易执行 |
 | M7 风险控制 | `risk_control/risk_control.py` | 个股止损、行业上限、组合熔断 |
@@ -203,6 +216,7 @@ quantlab/
 ## 文档
 
 - [Agentic 新特性介绍文章](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/agentic_feature_article.html) — 详细介绍 Agentic 复核层和板块资金流特性（[源码](docs/agentic_feature_article.html)）
+- [Factor-Spec Pipeline](docs/factor_spec_pipeline.md) — RD-Agent 风格因子搜索的结构化规格、确定性编译和采样冒烟测试流程
 - [项目架构图网页预览](https://htmlpreview.github.io/?https://github.com/sqyangx/quantlab/blob/main/docs/project_architecture.html) — 当前项目架构图和 Agentic/板块资金流新设计（[源码](docs/project_architecture.html)）
 - [DESIGN.md](DESIGN.md) — 系统架构概要设计
 - [DETAIL_DESIGN.md](DETAIL_DESIGN.md) — 模块详细设计（M1-M9）
